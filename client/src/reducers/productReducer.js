@@ -9,6 +9,7 @@ import {
 const initialState = {
   products: null,
   current: null,
+  count: 0,
   loading: true,
   error: null
 };
@@ -23,7 +24,8 @@ export default (state = initialState, action) => {
     case GET_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        products: action.payload.data,
+        count: action.payload.count,
         loading: false
       };
     case PRODUCTS_ERROR:

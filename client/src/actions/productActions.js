@@ -18,7 +18,7 @@ export const setCurrent = product => async dispatch => {
 export const getProducts = () => async dispatch => {
   try {
     setLoading();
-    const res = await fetch('/api/products');
+    const res = await fetch('/products');
     const data = await res.json();
     dispatch({ type: GET_PRODUCTS, payload: data });
   } catch (error) {

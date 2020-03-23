@@ -16,7 +16,9 @@ import Cart from './components/pages/user/Cart';
 import { StylesProvider } from '@material-ui/core/styles';
 import './App.css';
 
-if (localStorage.token) setAuthToken(localStorage.token);
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (

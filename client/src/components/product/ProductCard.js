@@ -45,8 +45,10 @@ const ProductCard = props => {
         </CardContent>
       </CardActionArea>
       <CardActions className='flex-end'>
-        <IconButton aria-label='add to cart'>
+        <IconButton aria-label='add_to_cart'>
           <AddShoppingCart />
+        </IconButton>
+        <IconButton aria-label='add_to_fav'>
           <FavoriteBorder />
         </IconButton>
       </CardActions>

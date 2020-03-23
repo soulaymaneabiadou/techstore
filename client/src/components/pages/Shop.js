@@ -18,7 +18,7 @@ const Shop = props => {
         Shop
       </Typography>
       <Grid container spacing={2}>
-        {products?.map(product => (
+        {products && products.length > 0 && products.map(product => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={product._id}>
             <ProductCard product={product} history={props.history} />
           </Grid>
