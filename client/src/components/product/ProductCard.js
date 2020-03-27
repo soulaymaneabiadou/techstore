@@ -25,19 +25,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductCard = props => {
-  const { _id, name, images } = props.product;
+  const { name, images } = props.product;
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const handleShowDetails = () => {
     dispatch(setCurrent(props.product));
-    props.history && props.history.push(`/shop/${_id}`);
+    props.history && props.history.push(`/shop/${name}`);
   };
 
   return (
     <Card className={classes.card}>
       <CardActionArea onClick={handleShowDetails}>
-        <CardMedia className={classes.media} image={images[0]?.url} />
+        <CardMedia className={classes.media} image={images[0]} />
         <CardContent>
           <Typography variant='h6' color='textPrimary' component='h1'>
             {name}

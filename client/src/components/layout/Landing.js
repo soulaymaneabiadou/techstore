@@ -6,14 +6,14 @@ import { setCurrent } from '../../actions/productActions';
 
 const Landing = props => {
   const { products, loading } = useSelector(state => state.store);
-  const { _id, name, description, images } =
+  const { name, description, images } =
     products && products[0] ? products[0] : {};
 
   const dispatch = useDispatch();
 
   const handleShowDetails = () => {
     products && dispatch(setCurrent(products[0]));
-    props.history && props.history.push(`/shop/${_id}`);
+    props.history && props.history.push(`/shop/${name}`);
   };
 
   return (
@@ -21,7 +21,7 @@ const Landing = props => {
       <header
         className='landing text-white'
         style={{
-          backgroundImage: `url(${images && images[0]?.url})`
+          backgroundImage: `url(${images && images[0]})`
         }}>
         <div className='dark-overlay landing-inner flex-center'>
           <Container maxWidth='sm' className='flex-center'>

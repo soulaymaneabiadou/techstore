@@ -2,6 +2,7 @@
 .pnp.js
 node_modules/
 __test__/
+data/
 config/config.env
 .vscode/
 

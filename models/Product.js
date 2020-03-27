@@ -5,12 +5,37 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a name']
   },
-  
+  description: {
+    type: String,
+    required: [true, 'Please add a description']
+  },
+  price: {
+    type: Number,
+    required: [true, 'Please add the price']
+  },
+  quantity: {
+    type: Number,
+    required: [true, 'Please add the quantity']
+  },
+  images: [
+    {
+      type: String,
+      required: true
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
 
+ProductSchema.path('images').validate(function(images) {
+  if (!images) {
+    return false;
+  } else if (images.length === 0) {
+    return false;
+  }
+  return true;
+}, 'Product needs to have at least one image');
 
 module.exports = mongoose.model('Product', ProductSchema);

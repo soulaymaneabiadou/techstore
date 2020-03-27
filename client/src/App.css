@@ -91,6 +91,12 @@ img {
 }
 
 /* FLEX */
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .flex-col {
   display: flex;
   flex-direction: column;
@@ -135,6 +141,44 @@ img {
 /* BUTTONS */
 .btn-large {
   font-size: 1.1rem;
+}
+
+/* CUSTOM INPUTS */
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer;
+  width: 100%;
+}
+
+.upload-btn-wrapper .btn {
+  margin-top: 1rem;
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  /* width: 12rem;
+  height: 10rem; */
+  width: 100%;
+}
+
+.upload-btn-wrapper input[type='file'] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+/* Dahboard */
+.admin-header {
+  margin: 2rem 0;
+  font-size: 1.5rem;
+  line-height: 1.1rem;
 }
 
 /* MEDIA QUERIES */

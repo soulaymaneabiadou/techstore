@@ -12,6 +12,8 @@ const SnackAlert = ({ type, errors }) => {
     errors && errors.map(error => tempArray = error.error.split(','));
     setArr(tempArray);
     setOpen(!open);
+
+    // eslint-disable-next-line
   }, [errors]);
 
   const handleClose = () => setOpen(false);

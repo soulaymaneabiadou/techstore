@@ -1,5 +1,7 @@
 export const SET_LOADING = 'SET_LOADING';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
+export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const UPLOAD_PRODUCT = 'UPLOAD_PRODUCT';
 export const CLEAR_PRODUCTS = 'CLEAR_PRODUCTS';
 export const PRODUCTS_ERROR = 'PRODUCTS_ERROR';
 export const SET_CURRENT = 'SET_CURRENT';

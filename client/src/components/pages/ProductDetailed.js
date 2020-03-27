@@ -13,7 +13,7 @@ import { AvatarGroup } from '@material-ui/lab';
 const ProductDetailed = () => {
   const { current } = useSelector(state => state.store);
   const { images, name, description } = current || {};
-  const [featuredImg, setFeaturedImg] = useState(images && images[0].url);
+  const [featuredImg, setFeaturedImg] = useState(images && images[0]);
 
   const setFeaturedImage = url => setFeaturedImg(url);
 
@@ -32,10 +32,10 @@ const ProductDetailed = () => {
                       i < 5 && (
                         <Avatar
                           key={i}
-                          alt={img.name}
-                          src={img.url}
+                          alt={name}
+                          src={img}
                           className='pointer'
-                          onClick={() => setFeaturedImage(img.url)}
+                          onClick={() => setFeaturedImage(img)}
                         />
                       )
                   )}

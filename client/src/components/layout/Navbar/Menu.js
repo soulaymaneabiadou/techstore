@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Menu, MenuItem } from '@material-ui/core';
 
 const MainMenu = ({ menuId, anchorEl, isMenuOpen, handleMenuClose }) => {
-  const { isAuthenticated } = useSelector(state => state.auth);
+  const { isAuthenticated, user } = useSelector(state => state.auth);
 
   return (
     <Menu
@@ -17,18 +17,33 @@ const MainMenu = ({ menuId, anchorEl, isMenuOpen, handleMenuClose }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}>
       {isAuthenticated ? (
-        <div>
-          <MenuItem onClick={handleMenuClose}>
-            <Link className='text-dark' to='/profile'>
-              Dashboard
-            </Link>
-          </MenuItem>
-          <MenuItem onClick={handleMenuClose}>
-            <Link className='text-dark' to='/profile/cart'>
-              My Cart
-            </Link>
-          </MenuItem>
-        </div>
+        user && user.role === 'admin' ? (
+          <div>
+            <MenuItem onClick={handleMenuClose}>
+              <Link className='text-dark' to='/profile'>
+                Dashboard
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <Link className='text-dark' to='/products'>
+                Manage Products
+              </Link>
+            </MenuItem>
+          </div>
+        ) : (
+          <div>
+            <MenuItem onClick={handleMenuClose}>
+              <Link className='text-dark' to='/profile'>
+                Dashboard
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <Link className='text-dark' to='/profile/cart'>
+                My Cart
+              </Link>
+            </MenuItem>
+          </div>
+        )
       ) : (
         <div>
           <MenuItem onClick={handleMenuClose}>

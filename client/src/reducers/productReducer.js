@@ -3,7 +3,8 @@ import {
   PRODUCTS_ERROR,
   SET_LOADING,
   SET_CURRENT,
-  CLEAR_CURRENT
+  CLEAR_CURRENT,
+  UPLOAD_PRODUCT
 } from '../actions/types';
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
   current: null,
   count: 0,
   loading: true,
-  error: null
+  uploading: null,
+  errors: null
 };
 
 export default (state = initialState, action) => {
@@ -31,7 +33,7 @@ export default (state = initialState, action) => {
     case PRODUCTS_ERROR:
       return {
         ...state,
-        error: action.payload
+        errors: action.payload
       };
     case SET_CURRENT:
       return {
@@ -39,10 +41,15 @@ export default (state = initialState, action) => {
         current: action.payload,
         loading: false
       };
+    case UPLOAD_PRODUCT:
+      return {
+        ...state,
+        uploading: action.payload
+      };
     case CLEAR_CURRENT:
       return {
         ...state,
-        error: action.payload
+        errors: action.payload
       };
 
     default:

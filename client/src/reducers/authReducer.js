@@ -22,7 +22,7 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: action.payload
+        user: action.payload.data
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
