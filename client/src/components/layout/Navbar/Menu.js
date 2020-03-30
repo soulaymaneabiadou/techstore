@@ -25,8 +25,13 @@ const MainMenu = ({ menuId, anchorEl, isMenuOpen, handleMenuClose }) => {
               </Link>
             </MenuItem>
             <MenuItem onClick={handleMenuClose}>
-              <Link className='text-dark' to='/products'>
+              <Link className='text-dark' to='/admin/products'>
                 Manage Products
+              </Link>
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+              <Link className='text-dark' to='/admin/users'>
+                Manage Users
               </Link>
             </MenuItem>
           </div>

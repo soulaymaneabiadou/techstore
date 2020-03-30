@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Paper,
   Table,
@@ -17,7 +17,11 @@ import {
   Breadcrumbs,
   Typography
 } from '@material-ui/core';
-import { Create as CreateIcon, Remove as RemoveIcon } from '@material-ui/icons';
+import {
+  CreateOutlined as CreateIcon,
+  DeleteOutlined as RemoveIcon
+} from '@material-ui/icons';
+import { deleteProduct } from '../../../actions/productActions';
 
 const useStyles = makeStyles({
   root: {
@@ -29,10 +33,12 @@ const useStyles = makeStyles({
 });
 
 const Products = props => {
+  const dispatch = useDispatch();
   const { products } = useSelector(state => state.store);
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  // eslint-disable-next-line
   const [columns, setColumns] = useState([
     { id: 'name', label: 'Name' },
     { id: 'description', label: 'Description' },
@@ -53,6 +59,8 @@ const Products = props => {
     props.history.push(to);
   };
 
+  const deleteThisProduct = id => () => dispatch(deleteProduct(id));
+
   return (
     <Container maxWidth='lg' className=''>
       <div className='d-flex mb-2 admin-header'>
@@ -65,7 +73,7 @@ const Products = props => {
         </Breadcrumbs>
 
         <Button variant='contained' color='default'>
-          <Link to='/products/add'>Add a Product</Link>
+          <Link to='/admin/products/add'>Add a Product</Link>
         </Button>
       </div>
       <Paper className={classes.root}>
@@ -80,39 +88,40 @@ const Products = props => {
             </TableHead>
             <TableBody>
               {products
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(row => {
                   return (
-                    <TableRow
-                      hover
-                      role='checkbox'
-                      tabIndex={-1}
-                      key={row.code}>
+                    <TableRow hover role='checkbox' tabIndex={-1} key={row._id}>
                       {columns.map(column => {
                         let value = row[column.id];
 
-                        if (value == undefined) {
+                        if (value === undefined) {
                           value = (
                             <div>
                               <Button
-                                className='mr-1'
-                                type='contained'
-                                color='default'>
-                                <Link to='products/modify/:id'>
+                                disableElevation
+                                onClick={null}
+                                variant='contained'
+                                color='secondary'>
+                                <Link
+                                  to={`/admin/products/update/${row._id}`}
+                                  className='reset'>
                                   <CreateIcon />
                                 </Link>
                               </Button>
                               <Button
-                                onClick={null}
-                                type='contained'
-                                color='danger'>
+                                disableElevation
+                                className='ml-1'
+                                onClick={deleteThisProduct(row._id)}
+                                variant='contained'
+                                color='secondary'>
                                 <RemoveIcon />
                               </Button>
                             </div>
                           );
                         }
                         return (
-                          <TableCell key={column._id} align={column.align}>
+                          <TableCell key={column.id} align={column.align}>
                             {value}
                           </TableCell>
                         );

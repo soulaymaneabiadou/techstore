@@ -8,24 +8,50 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
-exports.uploadImage = async req => {
-  if (req.files === null) {
-    return new ErrorResponse('No files attached', 400);
+exports.uploadImage = async files => {
+  let results = [];
+
+  if (!files) {
+    results = false;
   }
 
-  const image = req.files.image;
+  const images =
+    files.images.length && files.images.length > 0
+      ? files.images
+      : [files.images];
 
-  image.mv(`./data/uploads/${image.name}`, error => {
-    if (error) {
-      return new ErrorResponse(error.message, 500);
+  if (images) {
+    for (let i = 0; i < images.length; i++) {
+      const image = images[i];
+      image.mv(`./data/uploads/${image.name}`, error => {
+        if (error) {
+          return new ErrorResponse(error.message, 500);
+        }
+      });
+
+      const res = await cloudinary.uploader.upload(
+        `./data/uploads/${image.name}`
+      );
+
+      results.push(res.secure_url);
+
+      fs.unlink(`./data/uploads/${image.name}`, err => {
+        if (err) throw err;
+      });
     }
+  }
+
+  return results;
+};
+
+exports.deleteImage = async urls => {
+  public_ids = [];
+  urls.forEach(url => {
+    public_ids.push(
+      url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'))
+    );
   });
-
-  const res = await cloudinary.uploader.upload(`./data/uploads/${image.name}`);
-
-  fs.unlink(`./data/uploads/${image.name}`, err => {
-    if (err) throw err;
-  });
-
-  return res.secure_url;
+  const res = await cloudinary.api.delete_resources(public_ids);
+  console.log(res);
+  return Object.keys(res.deleted).length;
 };

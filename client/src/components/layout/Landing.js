@@ -54,7 +54,7 @@ const Landing = props => {
                 color='textSecondary'
                 gutterBottom={true}
                 variant='subtitle1'>
-                {description.substring(0, 30)}
+                {description?.substring(0, 30)}
               </Typography>
             )}
             {loading ? (

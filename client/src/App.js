@@ -18,6 +18,7 @@ import Register from './components/auth/Register';
 import Dashboard from './components/pages/Dashboard';
 import Cart from './components/pages/user/Cart';
 // Admin
+import Users from './components/pages/admin/Users';
 import Products from './components/pages/admin/Products';
 import AddProduct from './components/pages/admin/AddProduct';
 // Styling
@@ -40,8 +41,10 @@ const App = () => {
               <Route exact path='/about' component={About} />
               <Route exact path='/shop' component={Shop} />
               <Route exact path='/shop/:name' component={ProductDetailed} />
-              <Route exact path='/products' component={Products} />
-              <Route exact path='/products/add' component={AddProduct} />
+              <Route exact path='/admin/users' component={Users} />
+              <Route exact path='/admin/products' component={Products} />
+              <Route exact path='/admin/products/add' component={AddProduct} />
+              <Route exact path='/admin/products/update/:id' component={AddProduct} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Register} />
               <Route exact path='/profile' component={Dashboard} />

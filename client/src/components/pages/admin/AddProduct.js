@@ -1,55 +1,60 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  TextField,
-  Typography,
-  Button,
-  Container,
-  LinearProgress
-} from '@material-ui/core';
+import { TextField, Typography, Button, Container } from '@material-ui/core';
 import SnackAlert from '../../Alert';
-import { createProduct } from '../../../actions/productActions';
+import { createProduct, updateProduct } from '../../../actions/productActions';
 
 const AddProduct = props => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector(state => state.auth);
-  const { error, uploading } = useSelector(state => state.store);
+  const { errors, products } = useSelector(state => state.store);
   const [fileName, setFileName] = useState('Select an image');
+  // eslint-disable-next-line
+  const [productToUpdate, setProductToUpdate] = useState(
+    props.match.params.id || null
+  );
   const [product, setProduct] = useState({
     name: '',
     description: '',
-    price: 0,
-    quantity: 0,
+    price: '',
+    quantity: '',
     images: []
   });
-  const { name, description, price, quantity } = product;
+
+  useEffect(() => {
+    if (productToUpdate) {
+      setProduct(
+        products.filter(product => product._id === productToUpdate)[0]
+      );
+    }
+  }, []);
 
   useEffect(() => {
     !isAuthenticated && props.history.push('/login');
     user && user.role !== 'admin' && props.history.push('/');
   }, [isAuthenticated, props.history, user]);
 
-  useEffect(() => {
-    uploading >= 100 && props.history.push('/profile');
-    // eslint-disable-next-line
-  }, [uploading])
-
   const handleChange = input => e =>
     setProduct({ ...product, [input]: e.target.value });
 
   const uploadImage = e => {
-    setProduct({ ...product, images: [...product.images, e.target.files[0]] });
+    setProduct({ ...product, images: e.target.files });
     setFileName('File selected');
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    dispatch(createProduct(product));
+    dispatch(
+      productToUpdate
+        ? updateProduct(productToUpdate, product)
+        : createProduct(product)
+    );
   };
 
+  const { name, description, price, quantity } = product;
   return (
     <Fragment>
-      <SnackAlert type='error' errors={error} />
+      <SnackAlert type='error' errors={errors} />
       <Container maxWidth='xs'>
         <form noValidate autoComplete='off' onSubmit={onSubmit}>
           <Typography
@@ -59,19 +64,11 @@ const AddProduct = props => {
             Add Product
           </Typography>
 
-          {uploading && (
-            <LinearProgress
-              className='mt-2'
-              variant='determinate'
-              value={uploading}
-            />
-          )}
-
           <TextField
             className='mt-1'
             label='Product name'
             onChange={handleChange('name')}
-            defaultValue={name}
+            value={name}
             margin='normal'
             fullWidth={true}
           />
@@ -79,7 +76,7 @@ const AddProduct = props => {
             className='mt-1'
             label='Product description'
             onChange={handleChange('description')}
-            defaultValue={description}
+            value={description}
             margin='normal'
             fullWidth={true}
           />
@@ -88,7 +85,7 @@ const AddProduct = props => {
             className='mt-1'
             label='Product price'
             onChange={handleChange('price')}
-            defaultValue={price}
+            value={price}
             margin='normal'
             fullWidth={true}
           />
@@ -97,13 +94,15 @@ const AddProduct = props => {
             className='mt-1'
             label='Product quantity'
             onChange={handleChange('quantity')}
-            defaultValue={quantity}
+            value={quantity}
             margin='normal'
             fullWidth={true}
           />
           <div className='upload-btn-wrapper'>
-            <button className='btn'>{fileName}</button>
-            <input type='file' name='image' onChange={uploadImage} />
+            <button className='btn'>
+              {productToUpdate ? 'Add other images' : fileName}
+            </button>
+            <input type='file' multiple name='image' onChange={uploadImage} />
           </div>
 
           <Button
@@ -112,7 +111,7 @@ const AddProduct = props => {
             color='primary'
             className='mt-1'
             fullWidth>
-            Add
+            {productToUpdate ? 'Update' : 'Add'}
           </Button>
         </form>
       </Container>

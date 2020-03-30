@@ -26,6 +26,12 @@ img {
   flex-grow: 1;
 }
 
+.reset {
+  margin: -.4rem !important;
+  padding-top: .3rem !important;
+  color: #fff !important;
+}
+
 .container {
   max-width: 1600px;
   width: 92%;
@@ -53,6 +59,9 @@ img {
   margin-bottom: calc(var(--spacing-root) * 2.25);
 }
 
+.ml-1 {
+  margin-left: calc(var(--spacing-root));
+}
 .ml-2 {
   margin-left: calc(var(--spacing-root) * 2.25);
 }
