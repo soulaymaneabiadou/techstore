@@ -15,10 +15,11 @@ exports.uploadImage = async files => {
     results = false;
   }
 
-  const images =
-    files.images.length && files.images.length > 0
+  const images = files.images
+    ? files.images.length && files.images.length > 0
       ? files.images
-      : [files.images];
+      : [files.images]
+    : [files.image];
 
   if (images) {
     for (let i = 0; i < images.length; i++) {
