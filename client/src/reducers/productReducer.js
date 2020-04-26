@@ -3,15 +3,18 @@ import {
   PRODUCTS_ERROR,
   SET_LOADING,
   SET_CURRENT,
-  CLEAR_CURRENT
+  CLEAR_CURRENT,
+  ADD_TO_CART,
+  CLEAR_CART,
 } from '../actions/types';
 
 const initialState = {
   products: [],
+  cart: [],
   current: {},
   count: 0,
   loading: true,
-  errors: []
+  errors: [],
 };
 
 export default (state = initialState, action) => {
@@ -19,30 +22,41 @@ export default (state = initialState, action) => {
     case SET_LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case GET_PRODUCTS:
       return {
         ...state,
         products: action.payload.data,
         count: action.payload.count,
-        loading: false
+        loading: false,
+      };
+    case ADD_TO_CART:
+      localStorage.setItem('cart', [...state.cart, action.payload])
+      return {
+        ...state,
+        cart: [...state.cart, action.payload],
       };
     case PRODUCTS_ERROR:
       return {
         ...state,
-        errors: action.payload
+        errors: action.payload,
       };
     case SET_CURRENT:
       return {
         ...state,
         current: action.payload,
-        loading: false
+        loading: false,
       };
     case CLEAR_CURRENT:
       return {
         ...state,
-        errors: action.payload
+        errors: action.payload,
+      };
+    case CLEAR_CART:
+      return {
+        ...state,
+        cart: [],
       };
 
     default:

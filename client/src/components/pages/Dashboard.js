@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   const { role } = useSelector(state => state.auth.user);
 
-  if (role === 'admin') {
+  if (role && role === 'admin') {
     return <AdminDashboard />;
   } else {
     return <UserDashboard />;

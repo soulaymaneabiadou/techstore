@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers } from '../../../actions/userActions';
 import {
@@ -12,16 +11,11 @@ import {
   TablePagination,
   TableRow,
   Container,
-  Button,
   Link as MuiLink,
   makeStyles,
   Breadcrumbs,
   Typography
 } from '@material-ui/core';
-import {
-  CreateOutlined as CreateIcon,
-  DeleteOutlined as RemoveIcon
-} from '@material-ui/icons';
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +28,7 @@ const useStyles = makeStyles({
 
 const Users = props => {
   const dispatch = useDispatch();
-  const { all, count } = useSelector(state => state.users);
+  const { all } = useSelector(state => state.users);
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -46,6 +40,7 @@ const Users = props => {
 
   useEffect(() => {
     dispatch(getUsers());
+    // eslint-disable-next-line
   }, []);
 
   const handleChangePage = (event, newPage) => setPage(newPage);

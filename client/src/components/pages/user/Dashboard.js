@@ -7,7 +7,7 @@ const UserDashboard = () => {
     <div className='grow'>
       <Container maxWidth='lg' className='mt-3'>
         <Grid container spacing={4}>
-          <Grid item lg={4} md={6} xl={4} xs={12}>
+          <Grid item md={6} xs={12}>
             <AccountProfile />
           </Grid>
         </Grid>

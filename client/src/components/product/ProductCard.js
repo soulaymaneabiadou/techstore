@@ -12,7 +12,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import { FavoriteBorder, AddShoppingCart } from '@material-ui/icons';
-import { setCurrent } from '../../actions/productActions';
+import { setCurrent, addToCart } from '../../actions/productActions';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProductCard = props => {
-  const { name, images } = props.product;
+  const { name, images, _id } = props.product;
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ const ProductCard = props => {
         </CardContent>
       </CardActionArea>
       <CardActions className='flex-end'>
-        <IconButton aria-label='add_to_cart'>
+        <IconButton aria-label='add_to_cart' onClick={() => dispatch(addToCart(_id))} >
           <AddShoppingCart />
         </IconButton>
         <IconButton aria-label='add_to_fav'>

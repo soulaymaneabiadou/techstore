@@ -1,70 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Grid,
-  TextField,
   Card,
-  CardHeader,
-  CardActions,
   CardContent,
-  Divider,
-  Button
+  CardMedia,
+  Typography,
+  makeStyles,
 } from '@material-ui/core';
 
-const AccountProfile = () => {
-  const [user, setUser] = useState(useSelector(state => state.auth.user));
+const useStyles = makeStyles((theme) => ({
+  content: {
+    flex: '1 0 auto',
+  },
+}));
 
-  const handleChange = input => e =>
-    setUser({ ...user, [input]: e.target.value });
-
-  const onSubmit = e => {
-    e.preventDefault();
-    console.log(user);
-  };
+export default function MediaControlCard() {
+  const classes = useStyles();
+  const { user } = useSelector((state) => state.auth) || {};
 
   return (
-    user && (
-      <Card>
-        <form autoComplete='off' noValidate>
-          <CardHeader
-            title='Profile'
-            subheader='The information can be edited'
-          />
-          <Divider />
-          <CardContent>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <TextField
-                  className='mt-1'
-                  label='Full Name'
-                  onChange={handleChange('name')}
-                  defaultValue={user.name}
-                  margin='normal'
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className='mt-1'
-                  label='Email'
-                  onChange={handleChange('email')}
-                  defaultValue={user.email}
-                  margin='normal'
-                  fullWidth={true}
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-          <Divider />
-          <CardActions>
-            <Button color='primary' variant='contained' onClick={onSubmit}>
-              Save details
-            </Button>
-          </CardActions>
-        </form>
-      </Card>
-    )
+    <Card className='root'>
+      <div>
+        <CardContent className={classes.content}>
+          <Typography component='h5' variant='h5'>
+            {user.name}
+          </Typography>
+          <Typography variant='subtitle1' color='textSecondary'>
+            {user.email}
+          </Typography>
+        </CardContent>
+      </div>
+    </Card>
   );
-};
-
-export default AccountProfile;
+}

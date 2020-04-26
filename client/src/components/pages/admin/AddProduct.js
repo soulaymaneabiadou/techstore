@@ -27,7 +27,8 @@ const AddProduct = props => {
         products.filter(product => product._id === productToUpdate)[0]
       );
     }
-  }, []);
+    // eslint-disable-next-line
+  }, [productToUpdate]);
 
   useEffect(() => {
     !isAuthenticated && props.history.push('/login');

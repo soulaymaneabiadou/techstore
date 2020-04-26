@@ -1,11 +1,80 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import { Menu, MenuItem } from '@material-ui/core';
+import { logout } from '../../../actions/authActions';
 
-const MainMenu = ({ menuId, anchorEl, isMenuOpen, handleMenuClose }) => {
+const MainMenu = props => {
+  const { menuId, anchorEl, isMenuOpen, handleMenuClose } = props;
+  const dispatch = useDispatch();
   const { isAuthenticated, user } = useSelector(state => state.auth);
+
+  const logoutUser = async () => {
+    dispatch(logout());
+    props.history.push('/');
+  };
+
+  // eslint-disable-next-line
+  const [adminMenu, setAdminMenu] = useState(
+    <div>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='/profile'>
+          Dashboard
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='/admin/products'>
+          Manage Products
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='/admin/users'>
+          Manage Users
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='' onClick={logoutUser}>
+          Logout
+        </Link>
+      </MenuItem>
+    </div>
+  );
+  // eslint-disable-next-line
+  const [userMenu, setUserMenu] = useState(
+    <div>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='/profile'>
+          Dashboard
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='/profile/cart'>
+          My Cart
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='' onClick={logoutUser}>
+          Logout
+        </Link>
+      </MenuItem>
+    </div>
+  );
+  // eslint-disable-next-line
+  const [guestMenu, setGuestMenu] = useState(
+    <div>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='/login'>
+          Login
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='/signup'>
+          Sign up
+        </Link>
+      </MenuItem>
+    </div>
+  );
 
   return (
     <Menu
@@ -16,53 +85,11 @@ const MainMenu = ({ menuId, anchorEl, isMenuOpen, handleMenuClose }) => {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}>
-      {isAuthenticated ? (
-        user && user.role === 'admin' ? (
-          <div>
-            <MenuItem onClick={handleMenuClose}>
-              <Link className='text-dark' to='/profile'>
-                Dashboard
-              </Link>
-            </MenuItem>
-            <MenuItem onClick={handleMenuClose}>
-              <Link className='text-dark' to='/admin/products'>
-                Manage Products
-              </Link>
-            </MenuItem>
-            <MenuItem onClick={handleMenuClose}>
-              <Link className='text-dark' to='/admin/users'>
-                Manage Users
-              </Link>
-            </MenuItem>
-          </div>
-        ) : (
-          <div>
-            <MenuItem onClick={handleMenuClose}>
-              <Link className='text-dark' to='/profile'>
-                Dashboard
-              </Link>
-            </MenuItem>
-            <MenuItem onClick={handleMenuClose}>
-              <Link className='text-dark' to='/profile/cart'>
-                My Cart
-              </Link>
-            </MenuItem>
-          </div>
-        )
-      ) : (
-        <div>
-          <MenuItem onClick={handleMenuClose}>
-            <Link className='text-dark' to='/login'>
-              Login
-            </Link>
-          </MenuItem>
-          <MenuItem onClick={handleMenuClose}>
-            <Link className='text-dark' to='/signup'>
-              Sign up
-            </Link>
-          </MenuItem>
-        </div>
-      )}
+      {isAuthenticated
+        ? user && user.role === 'admin'
+          ? adminMenu
+          : userMenu
+        : guestMenu}
     </Menu>
   );
 };
@@ -74,4 +101,4 @@ MainMenu.propTypes = {
   handleMenuClose: PropTypes.func.isRequired
 };
 
-export default MainMenu;
+export default withRouter(MainMenu);
