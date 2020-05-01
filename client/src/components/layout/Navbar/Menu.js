@@ -12,7 +12,7 @@ const MainMenu = props => {
 
   const logoutUser = async () => {
     dispatch(logout());
-    props.history.push('/');
+    props.history.push('/login');
   };
 
   // eslint-disable-next-line

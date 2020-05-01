@@ -32,7 +32,7 @@ export default (state = initialState, action) => {
         loading: false,
       };
     case ADD_TO_CART:
-      localStorage.setItem('cart', [...state.cart, action.payload])
+      localStorage.setItem('cart', [JSON.stringify(...state.cart), JSON.stringify(action.payload)])
       return {
         ...state,
         cart: [...state.cart, action.payload],

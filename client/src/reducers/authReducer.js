@@ -49,6 +49,7 @@ export default (state = initialState, action) => {
       };
     case LOGOUT:
       localStorage.removeItem('token');
+      localStorage.removeItem('cart');
       return {
         ...state,
         token: null,

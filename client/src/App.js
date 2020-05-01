@@ -6,21 +6,21 @@ import setAuthToken from './utils/setAuthToken';
 // Components
 import Navbar from './components/layout/Navbar/Navbar';
 // Global Pages
-import NotFound from './components/pages/NotFound';
-import About from './components/pages/About';
-import Home from './components/pages/Home';
-import Shop from './components/pages/Shop';
-import ProductDetailed from './components/pages/ProductDetailed';
+import NotFound from './pages/NotFound';
+import About from './pages/About';
+import Home from './pages/Home';
+import Shop from './pages/Shop';
+import ProductDetailed from './pages/ProductDetailed';
 // Auth Pages
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
 // User related
-import Dashboard from './components/pages/Dashboard';
-import Cart from './components/pages/user/Cart';
+import Dashboard from './pages/Dashboard';
+import Cart from './pages/user/Cart';
 // Admin
-import Users from './components/pages/admin/Users';
-import Products from './components/pages/admin/Products';
-import AddProduct from './components/pages/admin/AddProduct';
+import Users from './pages/admin/Users';
+import Products from './pages/admin/Products';
+import AddProduct from './pages/admin/AddProduct';
 // Styling
 import { StylesProvider } from '@material-ui/core/styles';
 import './App.css';
@@ -44,7 +44,11 @@ const App = () => {
               <Route exact path='/admin/users' component={Users} />
               <Route exact path='/admin/products' component={Products} />
               <Route exact path='/admin/products/add' component={AddProduct} />
-              <Route exact path='/admin/products/update/:id' component={AddProduct} />
+              <Route
+                exact
+                path='/admin/products/update/:id'
+                component={AddProduct}
+              />
               <Route exact path='/login' component={Login} />
               <Route exact path='/signup' component={Register} />
               <Route exact path='/profile' component={Dashboard} />

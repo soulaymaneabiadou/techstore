@@ -1,14 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Container, Button } from '@material-ui/core';
+import { Typography, Container, Button, Link } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { setCurrent } from '../../actions/productActions';
 
-const Landing = props => {
-  const { products, loading } = useSelector(state => state.store);
-  const { name, description, images } =
-    products && products[0] ? products[0] : {};
-
+const Landing = (props) => {
+  const { products, loading } = useSelector((state) => state.store);
+  const { name, description, images } = products[0] || {};
   const dispatch = useDispatch();
 
   const handleShowDetails = () => {
@@ -21,61 +19,90 @@ const Landing = props => {
       <header
         className='landing text-white'
         style={{
-          backgroundImage: `url(${images && images[0]})`
-        }}>
+          backgroundImage: `url(${images && images[0]})`,
+        }}
+      >
         <div className='dark-overlay landing-inner flex-center'>
-          <Container maxWidth='sm' className='flex-center'>
-            {loading ? (
-              <Skeleton
-                animation='wave'
-                variant='text'
-                width={'60%'}
-                height={64}
-              />
-            ) : (
-              <Typography
-                className='text-white'
-                color='textPrimary'
-                gutterBottom={true}
-                variant='h4'>
-                {name}
-              </Typography>
-            )}
-            {loading ? (
-              <Skeleton
-                animation='wave'
-                variant='text'
-                width={'90%'}
-                height={120}
-              />
-            ) : (
-              <Typography
-                className='text-white'
-                color='textSecondary'
-                gutterBottom={true}
-                variant='subtitle1'>
-                {description?.substring(0, 30)}
-              </Typography>
-            )}
-            {loading ? (
-              <Skeleton
-                animation='wave'
-                variant='rect'
-                width={140}
-                height={80}
-                className='center'
-              />
-            ) : (
-              <Button
-                color='primary'
-                variant='contained'
-                size='large'
-                fullWidth={false}
-                className='mt-3 btn-large center'
-                onClick={handleShowDetails}>
-                Check it
-              </Button>
-            )}
+          <Container maxWidth='lg' className='relative-pos'>
+            <div className='text-content'>
+              {loading ? (
+                <Skeleton
+                  animation='wave'
+                  variant='text'
+                  width={'80%'}
+                  className='heading'
+                  height={40}
+                />
+              ) : (
+                <Typography
+                  className='text-white heading'
+                  color='textPrimary'
+                  gutterBottom={true}
+                  variant='h5'
+                >
+                  {name}
+                </Typography>
+              )}
+
+              {loading ? (
+                <Skeleton
+                  animation='wave'
+                  variant='text'
+                  width={'100%'}
+                  height={160}
+                  className='desc'
+                />
+              ) : (
+                <Typography
+                  className='text-white desc'
+                  gutterBottom={true}
+                  variant='body1'
+                >
+                  {description}
+                </Typography>
+              )}
+            </div>
+
+            <div className='flex-col hero-buttons'>
+              <div className='mouse-icon'>
+                <div className='wheel' />
+              </div>
+              {loading ? (
+                <Skeleton
+                  animation='wave'
+                  variant='rect'
+                  width={180}
+                  height={60}
+                  className='mb-2 mt-2'
+                />
+              ) : (
+                <Button
+                  color='primary'
+                  variant='contained'
+                  size='large'
+                  fullWidth={false}
+                  className='btn-large'
+                  onClick={handleShowDetails}
+                >
+                  Add to cart
+                </Button>
+              )}
+              {loading ? (
+                <Skeleton
+                  animation='wave'
+                  variant='rect'
+                  width={180}
+                  height={40}
+                />
+              ) : (
+                <Link
+                  className='text-white text-underlined text-uppercase pointer'
+                  onClick={handleShowDetails}
+                >
+                  Check it out
+                </Link>
+              )}
+            </div>
           </Container>
         </div>
       </header>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUsers } from '../../../actions/userActions';
+import { getUsers } from '../../actions/userActions';
 import {
   Paper,
   Table,

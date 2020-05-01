@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Typography, Button, Container } from '@material-ui/core';
-import SnackAlert from '../../Alert';
-import { createProduct, updateProduct } from '../../../actions/productActions';
+import SnackAlert from '../../components/Alert';
+import { createProduct, updateProduct } from '../../actions/productActions';
 
 const AddProduct = props => {
   const dispatch = useDispatch();

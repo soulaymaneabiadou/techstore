@@ -6,26 +6,25 @@ import {
   IconButton,
   Typography,
   Button,
-  makeStyles
+  makeStyles,
 } from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import { AccountCircle, MoreVert } from '@material-ui/icons';
 import MainMenu from './Menu';
 import MobileMenu from './MobileMenu';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   sectionDesktop: {
     display: 'none',
     [theme.breakpoints.up('md')]: {
-      display: 'flex'
-    }
+      display: 'flex',
+    },
   },
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {
-      display: 'none'
-    }
-  }
+      display: 'none',
+    },
+  },
 }));
 
 const Navbar = () => {
@@ -35,7 +34,7 @@ const Navbar = () => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleProfileMenuOpen = event => setAnchorEl(event.currentTarget);
+  const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
 
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
 
@@ -44,7 +43,7 @@ const Navbar = () => {
     handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = event =>
+  const handleMobileMenuOpen = (event) =>
     setMobileMoreAnchorEl(event.currentTarget);
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -52,11 +51,11 @@ const Navbar = () => {
 
   return (
     <div className='grow'>
-      <AppBar position='static'>
+      <AppBar position='static' className='navbar'>
         <div className='container'>
           <Toolbar>
-            <Typography className='title' variant='h6' noWrap>
-              Tech Store
+            <Typography className='text-uppercase' variant='body1' noWrap>
+              <Link to='/' className='text-white'>Tech Store</Link>
             </Typography>
 
             <div className='grow' />
@@ -67,7 +66,7 @@ const Navbar = () => {
                 </Link>
               </Button>
               <Button color='inherit'>
-                <Link to='/shop' className='text-white'>
+                <Link to='/shop' className='text-white mx-1'>
                   Shop
                 </Link>
               </Button>
@@ -83,7 +82,8 @@ const Navbar = () => {
                 aria-controls={menuId}
                 aria-haspopup='true'
                 onClick={handleProfileMenuOpen}
-                color='inherit'>
+                color='inherit'
+              >
                 <AccountCircle />
               </IconButton>
             </div>
@@ -93,13 +93,15 @@ const Navbar = () => {
                 aria-controls={mobileMenuId}
                 aria-haspopup='true'
                 onClick={handleMobileMenuOpen}
-                color='inherit'>
-                <MoreIcon />
+                color='inherit'
+              >
+                <MoreVert />
               </IconButton>
             </div>
           </Toolbar>
         </div>
       </AppBar>
+
       <MobileMenu
         mobileMenuId={mobileMenuId}
         mobileMoreAnchorEl={mobileMoreAnchorEl}
@@ -107,6 +109,7 @@ const Navbar = () => {
         handleMobileMenuClose={handleMobileMenuClose}
         handleProfileMenuOpen={handleProfileMenuOpen}
       />
+
       <MainMenu
         menuId={menuId}
         anchorEl={anchorEl}

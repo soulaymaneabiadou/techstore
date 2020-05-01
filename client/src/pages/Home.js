@@ -1,10 +1,10 @@
 import React, { useEffect, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
-import Landing from '../layout/Landing';
-import Newsletter from '../layout/Newsletter';
-import Footer from '../layout/Footer';
-import { loadUser } from '../../actions/authActions';
-import { getProducts } from '../../actions/productActions';
+import Landing from '../components/layout/Landing';
+import HotDeals from '../components/layout/HotDeals';
+import Footer from '../components/layout/Footer';
+import { loadUser } from '../actions/authActions';
+import { getProducts } from '../actions/productActions';
 
 const Home = props => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Home = props => {
   return (
     <Fragment>
       <Landing history={props.history} />
-      <Newsletter />
+      <HotDeals history={props.history} />
       <Footer />
     </Fragment>
   );

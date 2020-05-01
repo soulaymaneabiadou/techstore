@@ -9,7 +9,7 @@ import {
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
   ADD_TO_CART,
-  CLEAR_CART
+  CLEAR_CART,
 } from './types';
 
 export const setCurrent = (product) => async (dispatch) => {
@@ -93,10 +93,10 @@ export const deleteProduct = (id) => async (dispatch) => {
   }
 };
 
-export const addToCart = (id) => async (dispatch) => {
+export const addToCart = ({ id, name, quantity, price }) => async (dispatch) => {
   try {
     setLoading();
-    dispatch({ type: ADD_TO_CART, payload: id });
+    dispatch({ type: ADD_TO_CART, payload: { id, name, quantity, price } });
   } catch (error) {
     dispatch({ type: CLEAR_CART, payload: error });
   }

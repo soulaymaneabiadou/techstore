@@ -7,26 +7,14 @@ import {
   CardContent,
   CardActions,
   CardActionArea,
-  IconButton,
   Typography,
-  makeStyles
+  IconButton
 } from '@material-ui/core';
-import { FavoriteBorder, AddShoppingCart } from '@material-ui/icons';
+import { AddShoppingCart } from '@material-ui/icons';
 import { setCurrent, addToCart } from '../../actions/productActions';
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    maxWidth: 345
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%' // 16:9
-  }
-}));
-
-const ProductCard = props => {
-  const { name, images, _id } = props.product;
-  const classes = useStyles();
+const ProductCard = (props) => {
+  const { name, images, _id, quantity, price } = props.product;
   const dispatch = useDispatch();
 
   const handleShowDetails = () => {
@@ -34,22 +22,33 @@ const ProductCard = props => {
     props.history && props.history.push(`/shop/${name}`);
   };
 
+  const addProduct = () => {
+    dispatch(addToCart({ _id, name, quantity, price }));
+  };
+
   return (
-    <Card className={classes.card}>
+    <Card className='product-card'>
       <CardActionArea onClick={handleShowDetails}>
-        <CardMedia className={classes.media} image={images[0]} />
-        <CardContent>
-          <Typography variant='h6' color='textPrimary' component='h1'>
-            {name}
-          </Typography>
-        </CardContent>
+        <CardMedia className='media' image={images ? images[0] : ''} />
       </CardActionArea>
-      <CardActions className='flex-end'>
-        <IconButton aria-label='add_to_cart' onClick={() => dispatch(addToCart(_id))} >
+
+      <CardContent className='content'>
+        <Typography
+          variant='h6'
+          color='textPrimary'
+          component='h1'
+          className='name'
+        >
+          {name}
+        </Typography>
+      </CardContent>
+
+      <CardActions className='ads'>
+        <Typography variant='body1' color='textPrimary' className='price'>
+          $ {price}
+        </Typography>
+        <IconButton className='btn-rounded bg-gray' aria-label='add_to_cart' onClick={addProduct}>
           <AddShoppingCart />
-        </IconButton>
-        <IconButton aria-label='add_to_fav'>
-          <FavoriteBorder />
         </IconButton>
       </CardActions>
     </Card>
@@ -57,11 +56,11 @@ const ProductCard = props => {
 };
 
 ProductCard.propTypes = {
-  product: PropTypes.object.isRequired
+  product: PropTypes.object.isRequired,
 };
 
 ProductCard.defaultProps = {
-  product: {}
+  product: {},
 };
 
 export default ProductCard;

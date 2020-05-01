@@ -21,7 +21,7 @@ import {
   CreateOutlined as CreateIcon,
   DeleteOutlined as RemoveIcon
 } from '@material-ui/icons';
-import { deleteProduct } from '../../../actions/productActions';
+import { deleteProduct } from '../../actions/productActions';
 
 const useStyles = makeStyles({
   root: {
