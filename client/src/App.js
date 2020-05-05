@@ -17,6 +17,7 @@ import Register from './pages/auth/Register';
 // User related
 import Dashboard from './pages/Dashboard';
 import Cart from './pages/user/Cart';
+import Checkout from './pages/user/Checkout';
 // Admin
 import Users from './pages/admin/Users';
 import Products from './pages/admin/Products';
@@ -53,6 +54,7 @@ const App = () => {
               <Route exact path='/signup' component={Register} />
               <Route exact path='/profile' component={Dashboard} />
               <Route exact path='/profile/cart' component={Cart} />
+              <Route exact path='/profile/cart/checkout' component={Checkout} />
               <Route component={NotFound} />
             </Switch>
           </Fragment>

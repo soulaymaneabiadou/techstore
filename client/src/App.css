@@ -179,6 +179,9 @@ img {
 .text-underlined {
   text-decoration: underline;
 }
+.text-bold {
+  font-weight: 600;
+}
 
 /* =================== BUTTONS ================ */
 .btn-large {
@@ -447,6 +450,35 @@ img {
 }
 .landing .hero-buttons .btn-large {
   margin-bottom: 3em;
+}
+
+.checkout-base-bg {
+  border-radius: 12px;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.checkout-base-bg .bg-gray {
+  border-radius: 12px 0 0 12px;
+}
+.checkout-base-bg .bg-light {
+  border-radius: 0 12px 12px 0;
+}
+
+.checkout-details {
+  padding: 1.7em !important;
+}
+.details-header {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.details-date {
+  opacity: 0.75em;
+  margin-top: -0.6em;
+}
+.checkout-form {
+  padding: 0 1.7em 1.7em 1.7em !important;
+}
+.checkout-form input, .checkout-form label {
+  color: #fff !important;
 }
 
 /* =================== HEADERS ================ */

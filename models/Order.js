@@ -9,11 +9,17 @@ const OrderSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users'
   },
+  total: {
+    type: Number
+  },
   products: [
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'products'
+      },
+      price: {
+        type: Number
       },
       quantity: {
         type: Number
@@ -31,12 +37,9 @@ const OrderSchema = new mongoose.Schema({
       street: {
         type: String
       },
-      rest: {
+      zip: {
         type: String
       }
-    },
-    phone: {
-      type: String
     }
   },
   status: {

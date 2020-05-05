@@ -12,17 +12,18 @@ import {
 } from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
 import { setCurrent } from '../../actions/productActions';
+import { addToCart } from '../../actions/cartActions';
 
 const ProductCard = ({ product, history }) => {
-  const { name, images, price } = product;
   const dispatch = useDispatch();
+  const { name, images, price } = product;
 
   const handleShowDetails = () => {
     dispatch(setCurrent(product));
     history && history.push(`/shop/${name}`);
   };
 
-  const addProduct = () => console.log(product);
+  const addProduct = () => dispatch(addToCart(product));
 
   return (
     <Card className='product-card'>

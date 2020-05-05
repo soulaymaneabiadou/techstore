@@ -6,7 +6,7 @@ import { setCurrent } from '../../actions/productActions';
 import { addToCart } from '../../actions/cartActions';
 
 const Landing = (props) => {
-  const { products, current, loading } = useSelector((state) => state.store);
+  const { products, loading } = useSelector((state) => state.store);
   const { name, description, images } = products[0] || {};
   const dispatch = useDispatch();
 
@@ -15,7 +15,7 @@ const Landing = (props) => {
     props.history && props.history.push(`/shop/${name}`);
   };
 
-  const addCurrentToCart = () => addToCart(current);
+  const addCurrentToCart = () => dispatch(addToCart(products[0]));
 
   return (
     <div className='grow'>
