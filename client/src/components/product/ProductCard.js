@@ -8,28 +8,26 @@ import {
   CardActions,
   CardActionArea,
   Typography,
-  IconButton
+  IconButton,
 } from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
-import { setCurrent, addToCart } from '../../actions/productActions';
+import { setCurrent } from '../../actions/productActions';
 
-const ProductCard = (props) => {
-  const { name, images, _id, quantity, price } = props.product;
+const ProductCard = ({ product, history }) => {
+  const { name, images, price } = product;
   const dispatch = useDispatch();
 
   const handleShowDetails = () => {
-    dispatch(setCurrent(props.product));
-    props.history && props.history.push(`/shop/${name}`);
+    dispatch(setCurrent(product));
+    history && history.push(`/shop/${name}`);
   };
 
-  const addProduct = () => {
-    dispatch(addToCart({ _id, name, quantity, price }));
-  };
+  const addProduct = () => console.log(product);
 
   return (
     <Card className='product-card'>
       <CardActionArea onClick={handleShowDetails}>
-        <CardMedia className='media' image={images ? images[0] : ''} />
+        <CardMedia className='media' image={images ? images[0] : ' '} />
       </CardActionArea>
 
       <CardContent className='content'>
@@ -47,7 +45,11 @@ const ProductCard = (props) => {
         <Typography variant='body1' color='textPrimary' className='price'>
           $ {price}
         </Typography>
-        <IconButton className='btn-rounded bg-gray' aria-label='add_to_cart' onClick={addProduct}>
+        <IconButton
+          className='btn-rounded bg-gray'
+          aria-label='add_to_cart'
+          onClick={addProduct}
+        >
           <AddShoppingCart />
         </IconButton>
       </CardActions>

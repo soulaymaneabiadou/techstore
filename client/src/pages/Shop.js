@@ -12,6 +12,7 @@ const Shop = (props) => {
 
   useEffect(() => {
     dispatch(getProducts());
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -25,6 +26,7 @@ const Shop = (props) => {
       >
         Shop
       </Typography>
+      
       <Grid container spacing={4}>
         {products &&
           products.length > 0 &&

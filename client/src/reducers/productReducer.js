@@ -4,13 +4,10 @@ import {
   SET_LOADING,
   SET_CURRENT,
   CLEAR_CURRENT,
-  ADD_TO_CART,
-  CLEAR_CART,
 } from '../actions/types';
 
 const initialState = {
   products: [],
-  cart: [],
   current: {},
   count: 0,
   loading: true,
@@ -31,12 +28,6 @@ export default (state = initialState, action) => {
         count: action.payload.count,
         loading: false,
       };
-    case ADD_TO_CART:
-      localStorage.setItem('cart', [JSON.stringify(...state.cart), JSON.stringify(action.payload)])
-      return {
-        ...state,
-        cart: [...state.cart, action.payload],
-      };
     case PRODUCTS_ERROR:
       return {
         ...state,
@@ -53,12 +44,6 @@ export default (state = initialState, action) => {
         ...state,
         errors: action.payload,
       };
-    case CLEAR_CART:
-      return {
-        ...state,
-        cart: [],
-      };
-
     default:
       return state;
   }

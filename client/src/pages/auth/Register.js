@@ -12,7 +12,7 @@ import { register } from '../../actions/authActions';
 
 const Register = (props) => {
   const dispatch = useDispatch();
-  const { isAuthenticated, errors } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -34,7 +34,7 @@ const Register = (props) => {
 
   return (
     <Fragment>
-      <SnackAlert type='error' errors={errors} />
+      <SnackAlert type='error' />
       <Container maxWidth='xs'>
         <Typography
           variant='h4'

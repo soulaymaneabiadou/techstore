@@ -12,7 +12,7 @@ import { login } from '../../actions/authActions';
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const { isAuthenticated, errors } = useSelector((state) => state.auth);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -33,7 +33,7 @@ const Login = (props) => {
 
   return (
     <Fragment>
-      <SnackAlert type='error' errors={errors} />
+      <SnackAlert type='error' />
       <Container maxWidth='xs'>
         <Typography
           variant='h4'
@@ -54,6 +54,7 @@ const Login = (props) => {
               fullWidth
             />
             <TextField
+              type='password'
               className='mt-1'
               label='Password'
               onChange={handleChange('password')}

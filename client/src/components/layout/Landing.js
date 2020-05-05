@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Container, Button, Link } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { setCurrent } from '../../actions/productActions';
+import { addToCart } from '../../actions/cartActions';
 
 const Landing = (props) => {
-  const { products, loading } = useSelector((state) => state.store);
+  const { products, current, loading } = useSelector((state) => state.store);
   const { name, description, images } = products[0] || {};
   const dispatch = useDispatch();
 
@@ -13,6 +14,8 @@ const Landing = (props) => {
     products && dispatch(setCurrent(products[0]));
     props.history && props.history.push(`/shop/${name}`);
   };
+
+  const addCurrentToCart = () => addToCart(current);
 
   return (
     <div className='grow'>
@@ -82,7 +85,7 @@ const Landing = (props) => {
                   size='large'
                   fullWidth={false}
                   className='btn-large'
-                  onClick={handleShowDetails}
+                  onClick={addCurrentToCart}
                 >
                   Add to cart
                 </Button>

@@ -4,27 +4,23 @@ import { TextField, Typography, Button, Container } from '@material-ui/core';
 import SnackAlert from '../../components/Alert';
 import { createProduct, updateProduct } from '../../actions/productActions';
 
-const AddProduct = props => {
+const AddProduct = (props) => {
   const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector(state => state.auth);
-  const { errors, products } = useSelector(state => state.store);
-  const [fileName, setFileName] = useState('Select an image');
-  // eslint-disable-next-line
-  const [productToUpdate, setProductToUpdate] = useState(
-    props.match.params.id || null
-  );
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { errors, products } = useSelector((state) => state.store);
+  const [productToUpdate] = useState(props.match.params.id || null);
   const [product, setProduct] = useState({
     name: '',
     description: '',
     price: '',
     quantity: '',
-    images: []
+    images: [],
   });
 
   useEffect(() => {
     if (productToUpdate) {
       setProduct(
-        products.filter(product => product._id === productToUpdate)[0]
+        products.filter((product) => product._id === productToUpdate)[0]
       );
     }
     // eslint-disable-next-line
@@ -35,15 +31,14 @@ const AddProduct = props => {
     user && user.role !== 'admin' && props.history.push('/');
   }, [isAuthenticated, props.history, user]);
 
-  const handleChange = input => e =>
+  const handleChange = (input) => (e) =>
     setProduct({ ...product, [input]: e.target.value });
 
-  const uploadImage = e => {
+  const uploadImage = (e) => {
     setProduct({ ...product, images: e.target.files });
-    setFileName('File selected');
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     dispatch(
       productToUpdate
@@ -61,7 +56,8 @@ const AddProduct = props => {
           <Typography
             variant='h4'
             align='center'
-            className='text-uppercase mt-3'>
+            className='text-uppercase mt-3'
+          >
             Add Product
           </Typography>
 
@@ -100,9 +96,7 @@ const AddProduct = props => {
             fullWidth={true}
           />
           <div className='upload-btn-wrapper'>
-            <button className='btn'>
-              {productToUpdate ? 'Add other images' : fileName}
-            </button>
+            <button className='btn'>Add images</button>
             <input type='file' multiple name='image' onChange={uploadImage} />
           </div>
 
@@ -111,7 +105,8 @@ const AddProduct = props => {
             variant='contained'
             color='primary'
             className='mt-1'
-            fullWidth>
+            fullWidth
+          >
             {productToUpdate ? 'Update' : 'Add'}
           </Button>
         </form>

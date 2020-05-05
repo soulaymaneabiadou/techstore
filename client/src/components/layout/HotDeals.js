@@ -23,12 +23,12 @@ const HotDeals = (props) => {
         Top Deals
       </Typography>
 
-      <Grid container spacing={2}>
+      <Grid container item md={8} spacing={2} className='deals-container'>
         {deals &&
           deals.length > 0 &&
           deals.map((product) => (
             <Grid item xs={12} sm={6} key={product?._id}>
-              <ProductCard key={product?._id} product={product} history={props.history} />
+              <ProductCard product={product} history={props.history} />
             </Grid>
           ))}
       </Grid>

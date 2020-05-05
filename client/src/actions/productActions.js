@@ -8,9 +8,13 @@ import {
   CLEAR_CURRENT,
   UPDATE_PRODUCT,
   DELETE_PRODUCT,
-  ADD_TO_CART,
-  CLEAR_CART,
 } from './types';
+
+const config = {
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+};
 
 export const setCurrent = (product) => async (dispatch) => {
   try {
@@ -43,11 +47,6 @@ export const createProduct = (product) => async (dispatch) => {
     formData.append('price', product.price);
     formData.append('quantity', product.quantity);
 
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    };
     const res = await axios.post('/products', formData, config);
     dispatch({ type: ADD_PRODUCT, payload: res.data });
   } catch (error) {
@@ -68,11 +67,6 @@ export const updateProduct = (id, product) => async (dispatch) => {
     formData.append('price', product.price);
     formData.append('quantity', product.quantity);
 
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    };
     const res = await axios.put(`/products/${id}`, formData, config);
     dispatch({ type: UPDATE_PRODUCT, payload: res.data });
   } catch (error) {
@@ -90,15 +84,6 @@ export const deleteProduct = (id) => async (dispatch) => {
     dispatch({ type: DELETE_PRODUCT });
   } catch (error) {
     dispatch({ type: PRODUCTS_ERROR, payload: error });
-  }
-};
-
-export const addToCart = ({ id, name, quantity, price }) => async (dispatch) => {
-  try {
-    setLoading();
-    dispatch({ type: ADD_TO_CART, payload: { id, name, quantity, price } });
-  } catch (error) {
-    dispatch({ type: CLEAR_CART, payload: error });
   }
 };
 

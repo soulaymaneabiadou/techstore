@@ -5,7 +5,7 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT
+  LOGOUT,
 } from '../actions/types';
 
 const initialState = {
@@ -13,7 +13,7 @@ const initialState = {
   isAuthenticated: false,
   loading: true,
   user: {},
-  errors: []
+  errors: [],
 };
 
 export default (state = initialState, action) => {
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: action.payload.data
+        user: action.payload.data,
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
         ...action.payload,
         isAuthenticated: true,
         loading: false,
-        errors: null
+        errors: null,
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
@@ -45,17 +45,16 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
         loading: false,
         user: null,
-        errors: action.payload
+        errors: action.payload,
       };
     case LOGOUT:
       localStorage.removeItem('token');
-      localStorage.removeItem('cart');
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
-        user: null
+        user: null,
       };
     default:
       return state;
