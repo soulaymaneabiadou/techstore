@@ -3,50 +3,62 @@ const mongoose = require('mongoose');
 const OrderSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'users',
+    required: true,
   },
   total: {
-    type: Number
+    type: Number,
   },
   products: [
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'products'
+        ref: 'products',
       },
       price: {
-        type: Number
+        type: Number,
       },
       quantity: {
-        type: Number
-      }
-    }
+        type: Number,
+      },
+    },
   ],
-  delivery_info: {
-    address: {
-      country: {
-        type: String
-      },
-      city: {
-        type: String
-      },
-      street: {
-        type: String
-      },
-      zip: {
-        type: String
-      }
-    }
+  address: {
+    country: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    street: {
+      type: String,
+      required: true,
+    },
+    zip: {
+      type: String,
+      required: true,
+    },
   },
   status: {
     type: String,
     enum: ['delivered', 'pending'],
-    default: 'pending'
-  }
+    default: 'pending',
+  },
+});
+
+OrderSchema.pre('save', function (next) {
+  this.total = this.products.reduce(
+    (acc, currentValue) => acc + currentValue.price * currentValue.quantity,
+    0
+  );
+
+  next();
 });
 
 module.exports = mongoose.model('Order', OrderSchema);

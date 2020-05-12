@@ -2,30 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Typography } from '@material-ui/core';
 
-const ProfileCard = ({ user: { name, email } }) => {
+const ProfileCard = ({ user }) => {
   return (
-    <Grid container className='bg-elevated bg-light mt-2 profile-card'>
-      <Grid item xs={12} md={6} className='profile-info mb-1'>
-        <Typography variant='h5' className='header'>
-          {name}
-        </Typography>
-        <Typography variant='body2' className='subheader'>
-          {email}
-        </Typography>
+    user && (
+      <Grid container className='bg-elevated bg-light mt-2 profile-card'>
+        <Grid item xs={12} md={6} className='profile-info mb-1'>
+          <Typography variant='h5' className='header'>
+            {user.name}
+          </Typography>
+          <Typography variant='body2' className='subheader'>
+            {user.email}
+          </Typography>
+        </Grid>
       </Grid>
-    </Grid>
+    )
   );
 };
 
 ProfileCard.defaultProps = {
-  user: {
-    name: '',
-    email: '',
-  },
+  user: {},
 };
 
 ProfileCard.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
 };
 
 export default ProfileCard;

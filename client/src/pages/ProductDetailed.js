@@ -10,6 +10,7 @@ import {
 import { AvatarGroup } from '@material-ui/lab';
 import { AddShoppingCart } from '@material-ui/icons';
 import Footer from '../components/layout/Footer';
+import SnackAlert from '../components/Alert';
 import { addToCart } from '../actions/cartActions';
 
 const ProductDetailed = () => {
@@ -17,14 +18,20 @@ const ProductDetailed = () => {
   const { current = {} } = useSelector((state) => state.store);
   const { images, name, description } = current;
   const [featuredImg, setFeaturedImg] = useState(images[0]);
+  const [res, setRes] = useState({ type: null, message: null });
 
   const setFeaturedImage = (url) => setFeaturedImg(url);
 
-  const addProduct = () => dispatch(addToCart(current));
+  const addProduct = () => {
+    dispatch(addToCart(current));
+    setRes({ type: 'success', message: `${name} has been added to cart` });
+  };
 
   return (
     <Fragment>
       <Container maxWidth='lg'>
+        <SnackAlert type={res.type} data={[{ error: res.message }]} />
+
         <Grid container className='mt-2'>
           <Grid container className='top-info'>
             <Grid container item xs={12} className='img-showcase'>

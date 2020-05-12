@@ -10,7 +10,7 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     count: users.length,
-    data: users
+    data: users,
   });
 });
 
@@ -19,7 +19,7 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: user
+    data: user,
   });
 });
 
@@ -28,6 +28,10 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
   const { files } = req;
 
   let user = await User.findById(req.params.id);
+
+  if (req.params.id !== req.user.id) {
+    return next(new ErrorResponse('Access Denied', 401));
+  }
 
   if (!name) {
     return next(new ErrorResponse('All fields are required', 400));
@@ -45,11 +49,11 @@ exports.updateProfile = asyncHandler(async (req, res, next) => {
   const data = { ...req.body };
   user = await User.findByIdAndUpdate(req.params.id, data, {
     new: true,
-    runValidators: true
+    runValidators: true,
   });
 
   res.status(200).json({
     success: true,
-    data: user
+    data: user,
   });
 });

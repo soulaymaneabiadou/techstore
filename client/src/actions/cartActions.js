@@ -43,6 +43,6 @@ export const checkout = (order) => async (dispatch) => {
     console.log(res.data)
     dispatch({ type: PLACE_ORDER, payload: res.data });
   } catch (error) {
-    dispatch({ type: ORDER_ERROR });
+    dispatch({ type: ORDER_ERROR, payload: error.response.data.error });
   }
 };

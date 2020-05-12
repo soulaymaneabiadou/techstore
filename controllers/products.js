@@ -17,6 +17,10 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
 exports.getProduct = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
+  if (!product) {
+    return next(new ErrorResponse(`Product not found with ID of ${req.params.id}`, 404));
+  }
+
   res.status(200).json({
     success: true,
     data: product
@@ -78,6 +82,12 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
     runValidators: true
   });
 
+  if (!product) {
+    return next(
+      new ErrorResponse(`Product not found with ID of ${req.params.id}`, 404)
+    );
+  }
+
   res.status(200).json({
     success: true,
     data: product
@@ -89,7 +99,7 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
 
   if (!product) {
     return next(
-      new ErrorResponse('No product has been found with the givin ID', 400)
+      new ErrorResponse(`Product not found with ID of ${req.params.id}`, 404)
     );
   }
 

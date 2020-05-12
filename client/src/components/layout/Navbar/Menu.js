@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Menu, MenuItem } from '@material-ui/core';
+import SnackAlert from '../../Alert';
 import { logout } from '../../../actions/authActions';
 
-const MainMenu = props => {
+const MainMenu = (props) => {
   const { menuId, anchorEl, isMenuOpen, handleMenuClose } = props;
   const dispatch = useDispatch();
-  const { isAuthenticated, user } = useSelector(state => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const [res, setRes] = useState({ type: null, message: null });
 
-  const logoutUser = async () => {
+  const logoutUser = () => {
     dispatch(logout());
+    setRes({ type: 'success', message: 'Logout successful' });
     props.history.push('/login');
+    setRes({ type: null, message: null });
   };
 
   // eslint-disable-next-line
@@ -49,11 +53,6 @@ const MainMenu = props => {
         </Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
-        <Link className='text-dark' to='/profile/cart'>
-          My Cart
-        </Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
         <Link className='text-dark' to='' onClick={logoutUser}>
           Logout
         </Link>
@@ -77,20 +76,24 @@ const MainMenu = props => {
   );
 
   return (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}>
-      {isAuthenticated
-        ? user && user.role === 'admin'
-          ? adminMenu
-          : userMenu
-        : guestMenu}
-    </Menu>
+    <Fragment>
+      <SnackAlert type={res.type} data={[{ error: res.message }]} />
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        id={menuId}
+        keepMounted
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+      >
+        {isAuthenticated
+          ? user && user.role === 'admin'
+            ? adminMenu
+            : userMenu
+          : guestMenu}
+      </Menu>
+    </Fragment>
   );
 };
 
@@ -98,7 +101,7 @@ MainMenu.propTypes = {
   menuId: PropTypes.string.isRequired,
   anchorEl: PropTypes.object,
   isMenuOpen: PropTypes.bool.isRequired,
-  handleMenuClose: PropTypes.func.isRequired
+  handleMenuClose: PropTypes.func.isRequired,
 };
 
 export default withRouter(MainMenu);

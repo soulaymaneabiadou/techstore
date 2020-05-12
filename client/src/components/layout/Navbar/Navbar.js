@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   AppBar,
@@ -33,6 +34,7 @@ const Navbar = () => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
 
@@ -55,7 +57,9 @@ const Navbar = () => {
         <div className='container'>
           <Toolbar>
             <Typography className='text-uppercase' variant='body1' noWrap>
-              <Link to='/' className='text-white'>Tech Store</Link>
+              <Link to='/' className='text-white'>
+                Tech Store
+              </Link>
             </Typography>
 
             <div className='grow' />
@@ -75,6 +79,22 @@ const Navbar = () => {
                   About
                 </Link>
               </Button>
+
+              {isAuthenticated ? (
+                user && user.role && user.role === 'user' ? (
+                  <Button color='inherit'>
+                    <Link to='/profile/cart' className='text-white mx-1'>
+                      Cart
+                    </Link>
+                  </Button>
+                ) : null
+              ) : (
+                <Button color='inherit'>
+                  <Link to='/profile/cart' className='text-white mx-1'>
+                    Cart
+                  </Link>
+                </Button>
+              )}
 
               <IconButton
                 edge='end'

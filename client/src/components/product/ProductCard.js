@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
@@ -13,20 +13,26 @@ import {
 import { AddShoppingCart } from '@material-ui/icons';
 import { setCurrent } from '../../actions/productActions';
 import { addToCart } from '../../actions/cartActions';
+import SnackAlert from '../Alert';
 
 const ProductCard = ({ product, history }) => {
-  const dispatch = useDispatch();
   const { name, images, price } = product;
+  const dispatch = useDispatch();
+  const [res, setRes] = useState({ type: null, message: null });
 
   const handleShowDetails = () => {
     dispatch(setCurrent(product));
     history && history.push(`/shop/${name}`);
   };
 
-  const addProduct = () => dispatch(addToCart(product));
+  const addProduct = () => {
+    dispatch(addToCart(product));
+    setRes({ type: 'success', message: `${name} has been added to cart` });
+  };
 
   return (
     <Card className='product-card'>
+      <SnackAlert type={res.type} data={[{ error: res.message }]} />
       <CardActionArea onClick={handleShowDetails}>
         <CardMedia className='media' image={images ? images[0] : ' '} />
       </CardActionArea>

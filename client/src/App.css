@@ -149,6 +149,20 @@ img {
   padding-bottom: calc(var(--spacing-root) * 2.25);
 }
 
+.py-1 {
+  padding: var(--spacing-root) 0;
+}
+.py-2 {
+  padding: calc(var(--spacing-root) * 2.25) 0;
+}
+
+.px-1 {
+  padding: 0 var(--spacing-root);
+}
+.px-2 {
+  padding: 0 calc(var(--spacing-root) * 2.25);
+}
+
 /* =================== BACKGROUNDS ================ */
 .bg-gray {
   background: #a5a5a5;
@@ -477,7 +491,8 @@ img {
 .checkout-form {
   padding: 0 1.7em 1.7em 1.7em !important;
 }
-.checkout-form input, .checkout-form label {
+.checkout-form input,
+.checkout-form label {
   color: #fff !important;
 }
 

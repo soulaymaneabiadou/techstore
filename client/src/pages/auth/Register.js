@@ -12,7 +12,7 @@ import { register } from '../../actions/authActions';
 
 const Register = (props) => {
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, errors } = useSelector((state) => state.auth);
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -34,7 +34,7 @@ const Register = (props) => {
 
   return (
     <Fragment>
-      <SnackAlert type='error' />
+      <SnackAlert type='error' data={errors} />
       <Container maxWidth='xs'>
         <Typography
           variant='h4'
@@ -63,6 +63,7 @@ const Register = (props) => {
               fullWidth={true}
             />
             <TextField
+              type='password'
               className='mt-1'
               label='Password'
               onChange={handleChange('password')}

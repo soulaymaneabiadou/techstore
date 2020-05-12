@@ -7,10 +7,8 @@ const SnackAlert = ({ type, data }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    console.log({ type, data });
-
-    // eslint-disable-next-line
-  }, []);
+    if (type && data) setOpen(true);
+  }, [data, type]);
 
   const handleClose = () => setOpen(false);
 
@@ -22,17 +20,20 @@ const SnackAlert = ({ type, data }) => {
       onClose={handleClose}
     >
       <div className='flex-col mt-3'>
-        <Alert key={Math.random()} className='my-1' severity={type}>
-          {type}
-        </Alert>
+        {data &&
+          data.map((error) => (
+            <Alert key={Math.random()} className='my-1' severity={type}>
+              {error.error}
+            </Alert>
+          ))}
       </div>
     </Snackbar>
   );
 };
 
 Alert.propTypes = {
-  data: PropTypes.array.isRequired,
-  type: PropTypes.string.isRequired,
+  data: PropTypes.oneOf([Array, null]),
+  type: PropTypes.string,
 };
 
 Alert.defaultProps = {

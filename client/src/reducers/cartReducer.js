@@ -11,21 +11,30 @@ const initialState = {
   list: [],
   shop: [],
   total: 0,
-  error: '',
+  errors: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      return {
-        ...state,
-        list: [...state.list, action.payload],
-        shop: [
-          ...state.shop,
-          { id: action.payload._id, price: action.payload.price, quantity: 1 },
-        ],
-        total: state.total + action.payload.price,
-      };
+      const exist = state.list.filter(
+        (product) => product._id === action.payload._id
+      )[0];
+      return !exist
+        ? {
+            ...state,
+            list: [...state.list, action.payload],
+            shop: [
+              ...state.shop,
+              {
+                id: action.payload._id,
+                price: action.payload.price,
+                quantity: 1,
+              },
+            ],
+            total: state.total + action.payload.price,
+          }
+        : state;
 
     case UPDATE_CART:
       const ele = state.shop.findIndex((p) => p.id === action.payload.id);
@@ -68,7 +77,7 @@ export default (state = initialState, action) => {
     case ORDER_ERROR:
       return {
         ...state,
-        error: action.payload,
+        errors: [action.payload],
       };
 
     default:

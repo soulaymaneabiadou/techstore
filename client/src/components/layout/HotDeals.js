@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Typography, Grid, Container } from '@material-ui/core';
 import ProductCard from '../product/ProductCard';
+import ProductCardSkeleton from '../product/ProductCardSkeleton';
 
 const HotDeals = (props) => {
-  const { products } = useSelector((state) => state.store);
+  const { products, loading } = useSelector((state) => state.store);
   const [deals, setDeals] = useState([]);
 
   useEffect(() => {
@@ -24,13 +25,22 @@ const HotDeals = (props) => {
       </Typography>
 
       <Grid container item md={8} spacing={2} className='deals-container'>
-        {deals &&
-          deals.length > 0 &&
+        {loading ? (
+          <Fragment>
+            <Grid item xs={12} sm={6}>
+              <ProductCardSkeleton />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <ProductCardSkeleton />
+            </Grid>
+          </Fragment>
+        ) : (
           deals.map((product) => (
             <Grid item xs={12} sm={6} key={product?._id}>
               <ProductCard product={product} history={props.history} />
             </Grid>
-          ))}
+          ))
+        )}
       </Grid>
     </Container>
   );

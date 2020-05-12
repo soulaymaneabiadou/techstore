@@ -4,11 +4,12 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import SnackAlert from '../components/Alert';
 import { checkout } from '../actions/cartActions';
 
 const CheckoutForm = (props) => {
   const dispatch = useDispatch();
-  const { total, shop } = useSelector((state) => state.cart);
+  const { total, shop, errors } = useSelector((state) => state.cart);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [address, setAddress] = useState({
     street: '',
@@ -22,17 +23,23 @@ const CheckoutForm = (props) => {
     !isAuthenticated && props.history.push('/login');
   }, [isAuthenticated, props.history]);
 
+  useEffect(() => {
+    errors.length !== 0 && props.history.push('/profile');
+    console.log(errors)
+  }, [errors]);
+
   const handleChange = (input) => (e) =>
     setAddress({ ...address, [input]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(checkout({ address, total, shop }));
-    props.history.push('/profile');
   };
 
   return (
     <Grid container item xs={12} md={8} className='bg-gray checkout-form'>
+      <SnackAlert />
+
       <Typography className='section-header' variant='h5' gutterBottom>
         Checkout
       </Typography>

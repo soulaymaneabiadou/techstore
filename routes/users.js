@@ -10,7 +10,7 @@ router.route('/').get(authorize('admin'), getUsers);
 
 router
   .route('/:id')
-  .get(getUser)
+  .get(authorize('admin'), getUser)
   .put(updateProfile);
 
 module.exports = router;
