@@ -3,7 +3,7 @@ const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
 
 exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
   if (!email || !password || !name) {
     return next(new ErrorResponse('All fields are required', 400));
@@ -13,7 +13,6 @@ exports.register = asyncHandler(async (req, res, next) => {
     name,
     email,
     password,
-    role
   });
 
   sendTokenResponse(user, 200, res);
@@ -43,7 +42,7 @@ exports.getMe = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: user
+    data: user,
   });
 });
 
@@ -52,6 +51,6 @@ const sendTokenResponse = (user, statusCode, res) => {
 
   res.status(statusCode).json({
     success: true,
-    token
+    token,
   });
 };

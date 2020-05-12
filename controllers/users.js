@@ -1,6 +1,5 @@
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
-const { uploadImage, deleteImage } = require('../utils/fileUpload');
 
 const User = require('../models/User');
 
@@ -17,6 +16,12 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 exports.getUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
+  if (!user) {
+    return next(
+      new ErrorResponse(`User not found with id of ${req.params.id}`, 401)
+    );
+  }
+
   res.status(200).json({
     success: true,
     data: user,
@@ -24,26 +29,16 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 });
 
 exports.updateProfile = asyncHandler(async (req, res, next) => {
-  const { name } = req.body;
-  const { files } = req;
-
-  let user = await User.findById(req.params.id);
-
   if (req.params.id !== req.user.id) {
     return next(new ErrorResponse('Access Denied', 401));
   }
 
-  if (!name) {
-    return next(new ErrorResponse('All fields are required', 400));
-  }
+  let user = await User.findById(req.params.id);
 
-  if (files) {
-    const image = await uploadImage(files);
-    if (!image) {
-      return next(new ErrorResponse('Please provide an image', 400));
-    }
-
-    req.body.image = image[0];
+  if (!user) {
+    return next(
+      new ErrorResponse(`User not found with id of ${req.params.id}`, 401)
+    );
   }
 
   const data = { ...req.body };

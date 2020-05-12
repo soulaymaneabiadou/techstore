@@ -3,6 +3,7 @@
 node_modules/
 __test__/
 data/
+seeder.js
 config/config.env
 .vscode/
 
