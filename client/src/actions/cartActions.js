@@ -34,6 +34,7 @@ export const removeFromCart = (id) => async (dispatch) => {
 
 export const checkout = (order) => async (dispatch) => {
   try {
+    console.log(order)
     const { address, total, shop } = order;
     const res = await axios.post('/orders', {
       address,

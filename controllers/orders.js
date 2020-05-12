@@ -27,6 +27,11 @@ exports.getOrder = asyncHandler(async (req, res, next) => {
 
 exports.createOrder = asyncHandler(async (req, res, next) => {
   req.body.user = req.user.id;
+  const {street, zip, city, country} = req.body.address
+
+  if (!street || !zip || !city || !country) {
+    return next(new ErrorResponse('All fields are required', 404));
+  }
 
   const order = await Order.create(req.body);
 

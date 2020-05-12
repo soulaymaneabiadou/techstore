@@ -69,6 +69,7 @@ export default (state = initialState, action) => {
     case CLEAR_CART:
     case PLACE_ORDER:
       return {
+        ...state,
         list: [],
         shop: [],
         total: 0,

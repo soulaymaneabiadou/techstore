@@ -19,13 +19,15 @@ const CheckoutForm = (props) => {
   });
   const { street, zip, city, country } = address;
 
+  const [res, setRes] = useState({type: null, message: null})
+
   useEffect(() => {
     !isAuthenticated && props.history.push('/login');
   }, [isAuthenticated, props.history]);
 
   useEffect(() => {
-    errors.length !== 0 && props.history.push('/profile');
-    console.log(errors)
+    // errors.length !== 0 && props.history.push('/profile');
+    errors.length > 0 && setRes({type: 'error', message: errors[0]})
   }, [errors]);
 
   const handleChange = (input) => (e) =>
@@ -38,7 +40,7 @@ const CheckoutForm = (props) => {
 
   return (
     <Grid container item xs={12} md={8} className='bg-gray checkout-form'>
-      <SnackAlert />
+      <SnackAlert type={res.type} data={[{error: res.message}]} />
 
       <Typography className='section-header' variant='h5' gutterBottom>
         Checkout
