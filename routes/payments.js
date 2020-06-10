@@ -6,7 +6,7 @@ const router = express.Router();
 
 const { protect, authorize } = require('../middleware/auth');
 
-// router.use(protect);
+router.use(protect);
 // router.use(authorize(['admin']));
 
 router.post('/', createSession);
