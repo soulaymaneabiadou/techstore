@@ -4,10 +4,11 @@
   "description": "Techzone backend API",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production node server",
+    "start": "node server",
     "server": "nodemon server",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Soulaymane Abiadou",
   "license": "MIT",
@@ -26,5 +27,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.1",
     "stripe": "^8.61.0"
+  },
+  "engines": {
+    "node": "14.3.0",
+    "npm": "6.14.5"
   }
 }

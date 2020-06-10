@@ -2,6 +2,7 @@
 .pnp.js
 node_modules/
 package-lock.json
+client/package-lock.json
 __test__/
 data/
 seeder.js
@@ -9,7 +10,7 @@ config/config.env
 .vscode/
 
 client/coverage
-client//build
+client/build
 
 client/.DS_Store
 client/.env.local
