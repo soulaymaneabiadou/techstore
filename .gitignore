@@ -9,7 +9,7 @@ config/config.env
 .vscode/
 
 client/coverage
-client//build
+client/build
 
 client/.DS_Store
 client/.env.local
