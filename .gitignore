@@ -1,8 +1,6 @@
 /.pnp
 .pnp.js
 node_modules/
-package-lock.json
-client/package-lock.json
 __test__/
 data/
 seeder.js
