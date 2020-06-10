@@ -5,7 +5,7 @@ import {
   CLEAR_CART,
   UPDATE_CART,
   PLACE_ORDER,
-  ORDER_ERROR,
+  ORDER_ERROR
 } from './types';
 
 export const addToCart = (product) => async (dispatch) => {
@@ -34,14 +34,12 @@ export const removeFromCart = (id) => async (dispatch) => {
 
 export const checkout = (order) => async (dispatch) => {
   try {
-    console.log(order)
     const { address, total, shop } = order;
     const res = await axios.post('/orders', {
       address,
       total,
-      products: shop,
+      products: shop
     });
-    console.log(res.data)
     dispatch({ type: PLACE_ORDER, payload: res.data });
   } catch (error) {
     dispatch({ type: ORDER_ERROR, payload: error.response.data.error });

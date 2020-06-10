@@ -5,7 +5,7 @@ import {
   Container,
   Typography,
   Avatar,
-  IconButton,
+  IconButton
 } from '@material-ui/core';
 import { AvatarGroup } from '@material-ui/lab';
 import { AddShoppingCart } from '@material-ui/icons';
@@ -24,7 +24,7 @@ const ProductDetailed = () => {
 
   const addProduct = () => {
     dispatch(addToCart(current));
-    setRes({ type: 'success', message: `${name} has been added to cart` });
+    setRes({ type: 'success', message: `Product has been added to cart` });
   };
 
   return (

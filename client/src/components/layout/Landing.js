@@ -21,7 +21,7 @@ const Landing = (props) => {
     dispatch(addToCart(products[0]));
     setRes({
       type: 'success',
-      message: `${products[0].name} has been added to cart`,
+      message: `Product has been added to cart`
     });
   };
 
@@ -53,7 +53,7 @@ const Landing = (props) => {
       <header
         className='landing text-white'
         style={{
-          backgroundImage: `url(${images && images[0]})`,
+          backgroundImage: `url(${images && images[0]})`
         }}
       >
         <div className='dark-overlay landing-inner flex-center'>

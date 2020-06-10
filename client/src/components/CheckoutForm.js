@@ -15,19 +15,18 @@ const CheckoutForm = (props) => {
     street: '',
     zip: '',
     city: '',
-    country: '',
+    country: ''
   });
   const { street, zip, city, country } = address;
 
-  const [res, setRes] = useState({type: null, message: null})
+  const [res, setRes] = useState({ type: null, message: null });
 
   useEffect(() => {
     !isAuthenticated && props.history.push('/login');
   }, [isAuthenticated, props.history]);
 
   useEffect(() => {
-    // errors.length !== 0 && props.history.push('/profile');
-    errors.length > 0 && setRes({type: 'error', message: errors[0]})
+    errors.length > 0 && setRes({ type: 'error', message: errors[0] });
   }, [errors]);
 
   const handleChange = (input) => (e) =>
@@ -36,11 +35,12 @@ const CheckoutForm = (props) => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(checkout({ address, total, shop }));
+    props.history.push('/profile');
   };
 
   return (
     <Grid container item xs={12} md={8} className='bg-gray checkout-form'>
-      <SnackAlert type={res.type} data={[{error: res.message}]} />
+      <SnackAlert type={res.type} data={[{ error: res.message }]} />
 
       <Typography className='section-header' variant='h5' gutterBottom>
         Checkout

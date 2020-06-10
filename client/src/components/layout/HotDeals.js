@@ -35,9 +35,9 @@ const HotDeals = (props) => {
             </Grid>
           </Fragment>
         ) : (
-          deals.map((product) => (
-            <Grid item xs={12} sm={6} key={product?._id}>
-              <ProductCard product={product} history={props.history} />
+          deals.map((product, i) => (
+            <Grid key={i} item xs={12} sm={6}>
+              <ProductCard key={i} product={product} history={props.history} />
             </Grid>
           ))
         )}
