@@ -6,10 +6,11 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SnackAlert from '../components/Alert';
 import { checkout } from '../actions/cartActions';
+import { createPayment } from '../actions/paymentsActions';
 
 const CheckoutForm = (props) => {
   const dispatch = useDispatch();
-  const { total, shop, errors } = useSelector((state) => state.cart);
+  const { total, shop, list, errors } = useSelector((state) => state.cart);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [address, setAddress] = useState({
     street: '',
@@ -18,6 +19,14 @@ const CheckoutForm = (props) => {
     country: ''
   });
   const { street, zip, city, country } = address;
+
+  const [payment, setPayment] = useState({
+    quantity: shop.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.quantity,
+      0
+    ),
+    price: total * 100
+  });
 
   const [res, setRes] = useState({ type: null, message: null });
 
@@ -34,8 +43,8 @@ const CheckoutForm = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(checkout({ address, total, shop }));
-    props.history.push('/profile');
+    dispatch(createPayment({ ...payment, product: list[0] }));
+    // dispatch(checkout({ address, total, shop }));
   };
 
   return (

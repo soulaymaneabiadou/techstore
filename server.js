@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 const errorHandler = require('./middleware/error');
@@ -11,6 +12,7 @@ connectDB();
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(fileUpload());
 
@@ -22,6 +24,7 @@ app.use('/api/v1/auth', require('./routes/auth'));
 app.use('/api/v1/users', require('./routes/users'));
 app.use('/api/v1/products', require('./routes/products'));
 app.use('/api/v1/orders', require('./routes/orders'));
+app.use('/api/v1/payments', require('./routes/payments'));
 
 app.use(errorHandler);
 

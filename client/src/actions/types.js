@@ -29,3 +29,7 @@ export const UPDATE_CART = 'UPDATE_CART';
 
 export const PLACE_ORDER = 'PLACE_ORDER';
 export const ORDER_ERROR = 'ORDER_ERROR';
+
+export const CREATE_PAYMENT = 'CREATE_PAYMENT';
+export const VALIDATE_PAYMENT = 'VALIDATE_PAYMENT';
+export const PAYMENT_ERROR = 'PAYMENT_ERROR';
