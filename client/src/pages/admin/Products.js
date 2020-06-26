@@ -28,7 +28,6 @@ const Products = (props) => {
   // eslint-disable-next-line
   const [columns, setColumns] = useState([
     { id: 'name', label: 'Name' },
-    { id: 'description', label: 'Description' },
     { id: 'price', label: 'Price' },
     { id: 'quantity', label: 'Quantity' },
     { id: '', label: '' },

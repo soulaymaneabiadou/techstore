@@ -51,7 +51,7 @@ const AddProduct = (props) => {
   return (
     <Fragment>
       <SnackAlert type='error' errors={errors} />
-      <Container maxWidth='xs'>
+      <Container maxWidth='sm'>
         <form noValidate autoComplete='off' onSubmit={onSubmit}>
           <Typography
             variant='h4'
@@ -62,7 +62,7 @@ const AddProduct = (props) => {
           </Typography>
 
           <TextField
-            className='mt-1'
+            className='mt-3'
             label='Product name'
             onChange={handleChange('name')}
             value={name}
@@ -74,6 +74,7 @@ const AddProduct = (props) => {
             label='Product description'
             onChange={handleChange('description')}
             value={description}
+            multiline="true"
             margin='normal'
             fullWidth={true}
           />
