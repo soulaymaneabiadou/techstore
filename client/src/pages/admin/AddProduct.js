@@ -74,7 +74,7 @@ const AddProduct = (props) => {
             label='Product description'
             onChange={handleChange('description')}
             value={description}
-            multiline="true"
+            multiline={true}
             margin='normal'
             fullWidth={true}
           />

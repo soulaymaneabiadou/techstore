@@ -21,6 +21,7 @@ import Checkout from './pages/user/Checkout';
 // Admin
 import Users from './pages/admin/Users';
 import Products from './pages/admin/Products';
+import Orders from './pages/admin/Orders';
 import AddProduct from './pages/admin/AddProduct';
 // Styling
 import { StylesProvider } from '@material-ui/core/styles';
@@ -44,6 +45,7 @@ const App = () => {
               <Route exact path='/shop/:name' component={ProductDetailed} />
               <Route exact path='/admin/users' component={Users} />
               <Route exact path='/admin/products' component={Products} />
+              <Route exact path='/admin/orders' component={Orders} />
               <Route exact path='/admin/products/add' component={AddProduct} />
               <Route
                 exact

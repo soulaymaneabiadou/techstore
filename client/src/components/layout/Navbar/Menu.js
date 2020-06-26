@@ -14,8 +14,8 @@ const MainMenu = (props) => {
 
   const logoutUser = () => {
     dispatch(logout());
-    setRes({ type: 'success', message: 'Logout successful' });
     props.history.push('/login');
+    setRes({ type: 'success', message: 'Logout successful' });
     setRes({ type: null, message: null });
   };
 
@@ -30,6 +30,11 @@ const MainMenu = (props) => {
       <MenuItem onClick={handleMenuClose}>
         <Link className='text-dark' to='/admin/products'>
           Manage Products
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link className='text-dark' to='/admin/orders'>
+          Manage Orders
         </Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
