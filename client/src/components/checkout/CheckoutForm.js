@@ -4,9 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import SnackAlert from '../components/Alert';
-import { checkout } from '../actions/cartActions';
-import { createPayment } from '../actions/paymentsActions';
+import SnackAlert from '../layout/Alert';
+import { createPayment } from '../../actions/paymentsActions';
 
 const CheckoutForm = (props) => {
   const dispatch = useDispatch();

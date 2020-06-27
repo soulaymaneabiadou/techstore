@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import ProfileCard from '../../components/ProfileCard';
 import { getOrders } from '../../actions/orderActions'
 import Orders from '../admin/Orders';
+import LatestOrderCard from '../../components/LatestOrderCard';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -24,13 +25,14 @@ const Dashboard = () => {
         </Grid>
 
         <Grid container item xs={12} sm={6}>
-          <h1>Last Order</h1>
+          <LatestOrderCard order={list[0]} />
         </Grid>
       </Grid>
 
       <Grid container>
-        <Grid container item xs={12}>
-          <Orders />
+        <Grid container item xs={12} className="mt-3">
+          <Typography variant='h4' >Orders history</Typography>
+          <Orders user={true} />
         </Grid>
       </Grid>
     </Container>

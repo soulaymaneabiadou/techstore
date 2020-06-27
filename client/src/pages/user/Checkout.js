@@ -1,8 +1,8 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import CheckoutDetails from '../../components/CheckoutDetails';
-import CheckoutForm from '../../components/CheckoutForm';
+import CheckoutDetails from '../../components/checkout/CheckoutDetails';
+import CheckoutForm from '../../components/checkout/CheckoutForm';
 
 const Checkout = (props) => {
   return (

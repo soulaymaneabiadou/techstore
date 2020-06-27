@@ -4,7 +4,7 @@ import { Typography, Container, Button, Link } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 import { setCurrent } from '../../actions/productActions';
 import { addToCart } from '../../actions/cartActions';
-import SnackAlert from '../Alert';
+import SnackAlert from './Alert';
 
 const Landing = (props) => {
   const { products, loading } = useSelector((state) => state.store);

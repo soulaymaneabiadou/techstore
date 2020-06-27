@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import CartTable from '../../components/CartTable';
-import CartFooter from '../../components/CartFooter';
+import CartTable from '../../components/cart/CartTable';
+import CartFooter from '../../components/cart/CartFooter';
 
 const Cart = () => {
   const { list } = useSelector((state) => state.cart);
@@ -19,11 +19,11 @@ const Cart = () => {
           Your cart is empty
         </Typography>
       ) : (
-        <Fragment>
-          <CartTable data={list} />
-          <CartFooter />
-        </Fragment>
-      )}
+          <Fragment>
+            <CartTable data={list} />
+            <CartFooter />
+          </Fragment>
+        )}
     </Container>
   );
 };

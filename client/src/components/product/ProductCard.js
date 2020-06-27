@@ -13,7 +13,7 @@ import {
 import { AddShoppingCart } from '@material-ui/icons';
 import { setCurrent } from '../../actions/productActions';
 import { addToCart } from '../../actions/cartActions';
-import SnackAlert from '../Alert';
+import SnackAlert from '../layout/Alert';
 
 const ProductCard = ({ product, history }) => {
   const { name, images, price } = product;

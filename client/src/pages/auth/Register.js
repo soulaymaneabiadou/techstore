@@ -7,7 +7,7 @@ import {
   Container,
   Grid,
 } from '@material-ui/core';
-import SnackAlert from '../../components/Alert';
+import SnackAlert from '../../components/layout/Alert';
 import { register } from '../../actions/authActions';
 
 const Register = (props) => {

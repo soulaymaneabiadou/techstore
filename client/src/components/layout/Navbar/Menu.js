@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Menu, MenuItem } from '@material-ui/core';
-import SnackAlert from '../../Alert';
+import SnackAlert from '../Alert';
 import { logout } from '../../../actions/authActions';
 
 const MainMenu = (props) => {

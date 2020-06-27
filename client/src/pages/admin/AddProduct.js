@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Typography, Button, Container } from '@material-ui/core';
-import SnackAlert from '../../components/Alert';
+import SnackAlert from '../../components/layout/Alert';
 import { createProduct, updateProduct } from '../../actions/productActions';
 
 const AddProduct = (props) => {

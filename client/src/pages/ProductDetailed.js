@@ -10,7 +10,7 @@ import {
 import { AvatarGroup } from '@material-ui/lab';
 import { AddShoppingCart } from '@material-ui/icons';
 import Footer from '../components/layout/Footer';
-import SnackAlert from '../components/Alert';
+import SnackAlert from '../components/layout/Alert';
 import { addToCart } from '../actions/cartActions';
 
 const ProductDetailed = () => {
