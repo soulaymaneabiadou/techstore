@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AdminDashboard from './admin/Dashboard';
 import UserDashboard from './user/Dashboard';
 import { loadUser } from '../actions/authActions';
+import { getOrders } from '../actions/orderActions';
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Dashboard = (props) => {
   useEffect(() => {
     !isAuthenticated && props.history.push('/login');
     dispatch(loadUser());
+    dispatch(getOrders());
     // eslint-disable-next-line
   }, []);
 

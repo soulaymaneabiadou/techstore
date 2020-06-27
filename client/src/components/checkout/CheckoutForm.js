@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import SnackAlert from '../layout/Alert';
-import { createPayment } from '../../actions/paymentsActions';
+import { checkout } from '../../actions/cartActions';
 
 const CheckoutForm = (props) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const CheckoutForm = (props) => {
   });
   const { street, zip, city, country } = address;
 
-  const [payment, setPayment] = useState({
+  const [payment] = useState({
     quantity: shop.reduce(
       (accumulator, currentValue) => accumulator + currentValue.quantity,
       0
@@ -42,8 +42,7 @@ const CheckoutForm = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(createPayment({ ...payment, product: list[0] }));
-    // dispatch(checkout({ address, total, shop }));
+    dispatch(checkout({ address, total, shop, payment, product: list[0] }));
   };
 
   return (

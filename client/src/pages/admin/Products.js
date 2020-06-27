@@ -12,7 +12,7 @@ import {
   CreateOutlined as CreateIcon,
   DeleteOutlined as RemoveIcon,
 } from '@material-ui/icons';
-import { deleteProduct } from '../../actions/productActions';
+import { getProducts, deleteProduct } from '../../actions/productActions';
 import DataTable from '../../components/layout/DataTable';
 
 const Products = (props) => {
@@ -34,6 +34,8 @@ const Products = (props) => {
   const deleteThisProduct = (id) => () => dispatch(deleteProduct(id));
 
   useEffect(() => {
+    dispatch(getProducts());
+
     const temp = products.map(product => product.action = (<div>
       <Button
         disableElevation
@@ -59,8 +61,8 @@ const Products = (props) => {
       </Button>
     </div>));
 
-    setData(products);
 
+    setData(products);
   }, [])
 
   return (

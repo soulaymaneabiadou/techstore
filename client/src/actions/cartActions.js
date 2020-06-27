@@ -7,6 +7,7 @@ import {
   PLACE_ORDER,
   ORDER_ERROR
 } from './types';
+import { createPayment } from './paymentsActions';
 
 export const addToCart = (product) => async (dispatch) => {
   try {
@@ -32,15 +33,16 @@ export const removeFromCart = (id) => async (dispatch) => {
   }
 };
 
-export const checkout = (order) => async (dispatch) => {
+export const checkout = ({ address, total, shop, payment, product }) => async (dispatch) => {
   try {
-    const { address, total, shop } = order;
+
     const res = await axios.post('/orders', {
       address,
       total,
       products: shop
     });
     dispatch({ type: PLACE_ORDER, payload: res.data });
+    dispatch(createPayment({ ...payment, product }));
   } catch (error) {
     dispatch({ type: ORDER_ERROR, payload: error.response.data.error });
   }

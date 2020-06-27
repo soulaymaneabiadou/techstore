@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Typography, Button, Container } from '@material-ui/core';
+import { TextField, Typography, Button, Container, InputAdornment } from '@material-ui/core';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import SnackAlert from '../../components/layout/Alert';
 import { createProduct, updateProduct } from '../../actions/productActions';
 
@@ -45,6 +46,7 @@ const AddProduct = (props) => {
         ? updateProduct(productToUpdate, product)
         : createProduct(product)
     );
+    props.history.goBack();
   };
 
   const { name, description, price, quantity } = product;
@@ -86,6 +88,13 @@ const AddProduct = (props) => {
             value={price}
             margin='normal'
             fullWidth={true}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AttachMoneyIcon />
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             type='number'
