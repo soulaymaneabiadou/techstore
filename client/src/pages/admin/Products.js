@@ -18,7 +18,7 @@ import DataTable from '../../components/layout/DataTable';
 const Products = (props) => {
   const dispatch = useDispatch();
   const { products } = useSelector((state) => state.store);
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const [columns] = useState([
     { id: 'name', label: 'Name' },
     { id: 'price', label: 'Price' },
@@ -36,34 +36,38 @@ const Products = (props) => {
   useEffect(() => {
     dispatch(getProducts());
 
-    const temp = products.map(product => product.action = (<div>
-      <Button
-        disableElevation
-        onClick={null}
-        variant='contained'
-        color='secondary'
-      >
-        <Link
-          to={`/admin/products/update/${product._id}`}
-          className='reset'
-        >
-          <CreateIcon />
-        </Link>
-      </Button>
-      <Button
-        disableElevation
-        className='ml-1'
-        onClick={deleteThisProduct(product._id)}
-        variant='contained'
-        color='secondary'
-      >
-        <RemoveIcon />
-      </Button>
-    </div>));
-
+    const temp = products.map(
+      (product) =>
+        (product.action = (
+          <div>
+            <Button
+              disableElevation
+              onClick={null}
+              variant='contained'
+              color='secondary'
+            >
+              <Link
+                to={`/admin/products/update/${product._id}`}
+                className='reset'
+              >
+                <CreateIcon />
+              </Link>
+            </Button>
+            <Button
+              disableElevation
+              className='ml-1'
+              onClick={deleteThisProduct(product._id)}
+              variant='contained'
+              color='secondary'
+            >
+              <RemoveIcon />
+            </Button>
+          </div>
+        ))
+    );
 
     setData(products);
-  }, [])
+  }, []);
 
   return (
     <Container maxWidth='lg' className=''>
@@ -82,8 +86,6 @@ const Products = (props) => {
       </div>
 
       <DataTable headers={columns} data={data} />
-
-
     </Container>
   );
 };
