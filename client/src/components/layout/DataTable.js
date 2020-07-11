@@ -44,7 +44,7 @@ const DataTable = ({ headers, data }) => {
                         ? row[header.id].name
                         : row[header.id];
                     if (header.id === 'date') {
-                      value = new Date(row[header.id]).toLocaleDateString();
+                      value = new Date(row[header.id]).toLocaleString();
                     }
                     if (header.id === '_id') {
                       value = `#${index + 1}`;

@@ -4,13 +4,14 @@ const ErrorResponse = require('../utils/errorResponse');
 const User = require('../models/User');
 
 exports.getUsers = asyncHandler(async (req, res, next) => {
-  const users = await User.find({ role: /user/i }).sort({ createdAt: -1 });
+  // const users = await User.find({ role: /user/i }).sort({ createdAt: -1 });
 
-  res.status(200).json({
-    success: true,
-    count: users.length,
-    data: users,
-  });
+  // res.status(200).json({
+  //   success: true,
+  //   count: users.length,
+  //   data: users,
+  // });
+  res.status(200).json(res.advancedResults);
 });
 
 exports.getUser = asyncHandler(async (req, res, next) => {

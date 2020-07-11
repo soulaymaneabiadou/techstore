@@ -4,13 +4,7 @@ const { uploadImage, deleteImage } = require('../utils/fileUpload');
 const Product = require('../models/Product');
 
 exports.getProducts = asyncHandler(async (req, res, next) => {
-  const products = await Product.find().sort({ createdAt: -1 });
-
-  res.status(200).json({
-    success: true,
-    count: products.length,
-    data: products,
-  });
+  res.status(200).json(res.advancedResults);
 });
 
 exports.getProduct = asyncHandler(async (req, res, next) => {
@@ -99,6 +93,6 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: {}
+    data: {},
   });
 });

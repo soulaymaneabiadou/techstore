@@ -4,15 +4,17 @@ const {
   getProduct,
   createProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 } = require('../controllers/products');
 const { protect, authorize } = require('../middleware/auth');
+const advancedResults = require('../middleware/advancedResults');
+const Product = require('../models/Product');
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(getProducts)
+  .get(advancedResults(Product, ''), getProducts)
   .post(protect, authorize('admin'), createProduct);
 
 router
