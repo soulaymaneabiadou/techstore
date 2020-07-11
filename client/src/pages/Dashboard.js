@@ -4,6 +4,8 @@ import AdminDashboard from './admin/Dashboard';
 import UserDashboard from './user/Dashboard';
 import { loadUser } from '../actions/authActions';
 import { getOrders } from '../actions/orderActions';
+import { getUsers } from '../actions/userActions';
+import { getProducts } from '../actions/productActions';
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
@@ -13,7 +15,9 @@ const Dashboard = (props) => {
   useEffect(() => {
     !isAuthenticated && props.history.push('/login');
     dispatch(loadUser());
+    dispatch(getProducts());
     dispatch(getOrders());
+    dispatch(getUsers());
     // eslint-disable-next-line
   }, []);
 

@@ -2,6 +2,15 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const stripe = require('stripe')(process.env.STRIPE_SK_KEY);
 
+exports.createCustomer = async (customer) => {
+  const res = await stripe.customers.create({
+    name: customer.name,
+    email: customer.email,
+  });
+
+  return res.id;
+};
+
 exports.createSession = asyncHandler(async (req, res, next) => {
   const { price, quantity, product } = req.body;
 
@@ -14,21 +23,21 @@ exports.createSession = asyncHandler(async (req, res, next) => {
         price_data: {
           product_data: {
             name: product.name,
-            images: product.images
+            images: product.images,
           },
           currency: 'usd',
-          unit_amount: price
+          unit_amount: price,
         },
-        quantity
-      }
+        quantity,
+      },
     ],
 
     success_url: 'http://localhost:3000/',
-    cancel_url: `http://localhost:3000/app`
+    cancel_url: `http://localhost:3000/app`,
   });
 
   res.status(200).json({
     succes: true,
-    data: session.id
+    data: session.id,
   });
 });

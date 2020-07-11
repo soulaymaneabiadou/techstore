@@ -5,7 +5,7 @@ import { Grid, Typography } from '@material-ui/core';
 const ProfileCard = ({ user }) => {
   return (
     user && (
-      <Grid container className='bg-elevated bg-light mt-2 profile-card'>
+      <Grid container className='bg-elevated mt-2 profile-card'>
         <Grid item xs={12} md={6} className='profile-info mb-1'>
           <Typography variant='h5' className='header'>
             {user.name}

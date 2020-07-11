@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const User = require('../models/User');
+const { createCustomer } = require('./payments');
 
 exports.register = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -9,10 +10,14 @@ exports.register = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse('All fields are required', 400));
   }
 
+  // @TODO: Get stripe customerId and assign it to user
+  const customerId = await createCustomer({ email, name });
+
   const user = await User.create({
     name,
     email,
     password,
+    stripeId: customerId,
   });
 
   sendTokenResponse(user, 200, res);
