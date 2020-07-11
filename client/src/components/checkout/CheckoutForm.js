@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -10,12 +10,11 @@ import { checkout } from '../../actions/cartActions';
 const CheckoutForm = (props) => {
   const dispatch = useDispatch();
   const { total, shop, list, errors } = useSelector((state) => state.cart);
-  const { isAuthenticated } = useSelector((state) => state.auth);
   const [address, setAddress] = useState({
     street: '',
     zip: '',
     city: '',
-    country: ''
+    country: '',
   });
   const { street, zip, city, country } = address;
 
@@ -24,21 +23,19 @@ const CheckoutForm = (props) => {
       (accumulator, currentValue) => accumulator + currentValue.quantity,
       0
     ),
-    price: total * 100
+    price: total * 100,
   });
 
   const [res, setRes] = useState({ type: null, message: null });
 
   useEffect(() => {
-    !isAuthenticated && props.history.push('/login');
-  }, [isAuthenticated, props.history]);
-
-  useEffect(() => {
     errors.length > 0 && setRes({ type: 'error', message: errors[0] });
   }, [errors]);
 
-  const handleChange = (input) => (e) =>
+  const handleChange = (input) => (e) => {
+    setRes({ type: null, message: null });
     setAddress({ ...address, [input]: e.target.value });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -46,46 +43,49 @@ const CheckoutForm = (props) => {
   };
 
   return (
-    <Grid container item xs={12} md={8} className='bg-gray checkout-form'>
+    <Fragment>
       <SnackAlert type={res.type} data={[{ error: res.message }]} />
 
       <Typography className='section-header' variant='h5' gutterBottom>
-        Checkout
+        Order details
       </Typography>
 
       <Grid item xs={12}>
         <form noValidate autoComplete='off' onSubmit={onSubmit}>
           <Grid item xs={12}>
             <TextField
-              className='mt-1 text-white'
+              className='mt-1'
               label='Street address'
               onChange={handleChange('street')}
               defaultValue={street}
               margin='normal'
+              fullWidth={true}
             />
             <TextField
-              className='mt-1 ml-3 text-white'
+              className='mt-1'
               label='Zip code'
               onChange={handleChange('zip')}
               defaultValue={zip}
               margin='normal'
+              type='number'
+              fullWidth={true}
             />
-          </Grid>
 
-          <Grid item xs={12} className='mt-1'>
             <TextField
-              className='mt-1 text-white'
+              className='mt-1'
               label='City'
               onChange={handleChange('city')}
               defaultValue={city}
               margin='normal'
+              fullWidth={true}
             />
             <TextField
-              className='mt-1 ml-3 text-white'
+              className='mt-1'
               label='Country'
               onChange={handleChange('country')}
               defaultValue={country}
               margin='normal'
+              fullWidth={true}
             />
           </Grid>
 
@@ -99,7 +99,7 @@ const CheckoutForm = (props) => {
           </Button>
         </form>
       </Grid>
-    </Grid>
+    </Fragment>
   );
 };
 

@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 const CheckoutDetails = () => {
   const { total } = useSelector((state) => state.cart);
+  const orderCount = useSelector((state) => state.orders.count);
 
   return (
-    <Grid container item xs={12} md={4} className='bg-light checkout-details'>
+    <Fragment>
       <Grid item xs={12} className='mb-2'>
         <Typography className='details-header' variant='h5' gutterBottom>
-          Order #252
+          Order #{orderCount + 1}
         </Typography>
-        <Typography variant='subtitle2' className='details-date'>
+        <Typography variant='subtitle2' className='details-date mb-3'>
           {new Date().toLocaleDateString()}
         </Typography>
-      </Grid>
-      <Grid item xs={12}>
+
         <Grid item xs={12} className='d-flex'>
           <Typography className='' variant='body1'>
             Subtotal
@@ -30,7 +30,7 @@ const CheckoutDetails = () => {
             Taxes
           </Typography>
           <Typography className='' variant='body1'>
-            $ {total / 10}{' '}
+            $ {0}
           </Typography>
         </Grid>
 
@@ -45,7 +45,7 @@ const CheckoutDetails = () => {
           </Typography>
         </Grid>
       </Grid>
-    </Grid>
+    </Fragment>
   );
 };
 

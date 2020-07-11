@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Table,
   TableBody,
@@ -7,7 +7,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  TableContainer
+  TableContainer,
 } from '@material-ui/core';
 
 const DataTable = ({ headers, data }) => {
@@ -26,28 +26,31 @@ const DataTable = ({ headers, data }) => {
       <Table>
         <TableHead>
           <TableRow>
-            {headers.map(header => <TableCell key={header.id}>{header.label}</TableCell>)}
+            {headers.map((header) => (
+              <TableCell key={header.id}>{header.label}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
 
         <TableBody>
           {data
             ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row) => {
+            .map((row, index) => {
               return (
                 <TableRow hover role='checkbox' tabIndex={-1} key={row._id}>
                   {headers.map((header) => {
-                    let value = (header.id === 'user' && typeof header.id === "object") ? row[header.id].name : row[header.id];
+                    let value =
+                      header.id === 'user' && typeof header.id === 'object'
+                        ? row[header.id].name
+                        : row[header.id];
                     if (header.id === 'date') {
-                      value = new Date(row[header.id]).toLocaleString()
+                      value = new Date(row[header.id]).toLocaleDateString();
+                    }
+                    if (header.id === '_id') {
+                      value = `#${index + 1}`;
                     }
 
-
-                    return (
-                      <TableCell key={header.id}>
-                        {value}
-                      </TableCell>
-                    );
+                    return <TableCell key={header.id}>{value}</TableCell>;
                   })}
                 </TableRow>
               );
@@ -65,12 +68,12 @@ const DataTable = ({ headers, data }) => {
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </TableContainer>
-  )
-}
+  );
+};
 
 DataTable.propTypes = {
   headers: PropTypes.array.isRequired,
-  data: PropTypes.array.isRequired
-}
+  data: PropTypes.array.isRequired,
+};
 
-export default DataTable
+export default DataTable;

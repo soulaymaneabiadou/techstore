@@ -474,7 +474,9 @@ img {
 }
 
 .checkout-details {
+  border-left: 2px solid var(--light-color);
   padding: 1.7em !important;
+  margin-top: 1rem;
 }
 .details-header {
   font-size: 1.5em;
@@ -486,10 +488,6 @@ img {
 }
 .checkout-form {
   padding: 0 1.7em 1.7em 1.7em !important;
-}
-.checkout-form input,
-.checkout-form label {
-  color: #fff !important;
 }
 
 /* =================== HEADERS ================ */

@@ -32,7 +32,7 @@ const CartFooter = () => {
               Taxes
             </Typography>
             <Typography className='' variant='body1'>
-              $ {total / 10}{' '}
+              $ {0}
             </Typography>
           </Grid>
 
