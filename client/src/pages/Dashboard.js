@@ -9,7 +9,7 @@ import { getProducts } from '../actions/productActions';
 
 const Dashboard = (props) => {
   const dispatch = useDispatch();
-  const { role } = useSelector((state) => state.auth.user || {});
+  const { role } = useSelector((state) => state.auth?.user);
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Dashboard = (props) => {
     // eslint-disable-next-line
   }, []);
 
-  if (role === 'admin') {
+  if (role && role === 'admin') {
     return <AdminDashboard />;
   } else {
     return <UserDashboard />;

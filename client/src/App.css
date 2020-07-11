@@ -180,15 +180,6 @@ img {
   box-shadow: 1px 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* 
-  Big cards
-box-shadow: 20px 20px 80px 0 rgba(16, 5, 48, 0.18);
-
-  Small display cards
-box-shadow: 20px 20px 80px 0 rgba(16, 5, 48, 0.08);
-
-*/
-
 /* =================== TEXT ================ */
 .text-uppercase {
   text-transform: uppercase;
@@ -516,6 +507,17 @@ box-shadow: 20px 20px 80px 0 rgba(16, 5, 48, 0.08);
   font-size: 1.75em;
   font-family: 'Montserrat';
   margin: 1em 0;
+}
+
+/* ADMIN */
+.stats-card {
+  background: rgb(137, 247, 254);
+  background: linear-gradient(
+    150deg,
+    rgba(137, 247, 254, 1) 0%,
+    rgba(102, 166, 255, 1) 100%
+  );
+  color: #ffffff;
 }
 
 /* =================== FOOTER ================ */

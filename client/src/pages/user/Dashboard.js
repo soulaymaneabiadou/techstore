@@ -1,31 +1,38 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Container, Grid, Typography } from '@material-ui/core';
-import ProfileCard from '../../components/ProfileCard';
+import {
+  Container,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+} from '@material-ui/core';
 import Orders from '../admin/Orders';
-import LatestOrderCard from '../../components/LatestOrderCard';
+import DataCard from '../../components/DataCard';
 
 const Dashboard = () => {
+  const orderCount = useSelector((state) => state.orders.count);
   const { user } = useSelector((state) => state.auth);
-  const { list } = useSelector(state => state.orders)
 
   return (
     <Container maxWidth='lg'>
-      <Grid container spacing={4}>
-        <Grid container item xs={12} sm={6}>
-          <ProfileCard user={user && user} />
+      <Grid container spacing={3} className='mt-2 mb-2'>
+        <Grid item xs={12} md={3}>
+          <DataCard main={user?.name?.split(' ')[0]} desc={user?.email} />
         </Grid>
 
-        <Grid container item xs={12} sm={6}>
-          <LatestOrderCard order={list[0]} />
+        <Grid item xs={12} md={3}>
+          <DataCard main={orderCount} desc='Total Orders' />
         </Grid>
       </Grid>
 
-      <Grid container>
-        <Grid container item xs={12} className="mt-3">
-          <Typography variant='h4' >Orders history</Typography>
-          <Orders user={true} />
-        </Grid>
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Typography variant='h5'>Orders history</Typography>
+            <Orders user={true} />
+          </CardContent>
+        </Card>
       </Grid>
     </Container>
   );

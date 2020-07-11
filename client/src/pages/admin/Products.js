@@ -36,7 +36,7 @@ const Products = (props) => {
   useEffect(() => {
     dispatch(getProducts());
 
-    const temp = products.map(
+    products.map(
       (product) =>
         (product.action = (
           <div>
@@ -67,6 +67,7 @@ const Products = (props) => {
     );
 
     setData(products);
+    // eslint-disable-next-line
   }, []);
 
   return (
