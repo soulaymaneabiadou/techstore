@@ -330,15 +330,12 @@ img {
 /* =================== COMPONENTS ================ */
 /* =================== CARDS ================ */
 .product-card {
-  border-radius: 24px;
-  box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.25);
-  height: 426px;
-  background: #707070;
+  border-radius: 8px;
+  box-shadow: 4px 4px 20px 0 rgba(0, 0, 0, 0.08);
 }
 .product-card .media {
   width: auto;
   height: 281px;
-  border-radius: 24px;
 }
 .product-card .content {
   padding: 1.4em 1.4em 2em 1.4em;
@@ -348,7 +345,6 @@ img {
   font-weight: 500;
   font-size: 20px;
   margin-bottom: -1em;
-  color: #ffffff;
 }
 .product-card .ads {
   justify-content: space-between;
@@ -357,10 +353,10 @@ img {
 .product-card .ads .price {
   font-weight: 400;
   font-size: 28px;
-  color: #ffffff;
 }
 .product-card .ads .btn-rounded {
-  box-shadow: 0px 3px 6px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 2px 6px 0 rgba(0, 0, 0, 0.2);
+  font-size: 5em;
 }
 
 .profile-card {

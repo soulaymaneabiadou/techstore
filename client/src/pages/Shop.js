@@ -17,19 +17,24 @@ const Shop = (props) => {
     // eslint-disable-next-line
   }, []);
 
+  const createSkeletons = (max = 6) => {
+    let skeletons = new Array(max);
+    for (let i = 0; i < max; i++) {
+      skeletons.push(
+        <Grid item key={i} xs={12} sm={6} md={4} lg={4}>
+          <ProductCardSkeleton />
+        </Grid>
+      );
+    }
+
+    return skeletons;
+  };
+
   if (loading) {
     list = (
-      <Fragment>
-        <Grid item xs={12} sm={6} md={4} lg={4}>
-          <ProductCardSkeleton />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={4}>
-          <ProductCardSkeleton />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={4}>
-          <ProductCardSkeleton />
-        </Grid>
-      </Fragment>
+      <Grid container spacing={4}>
+        {createSkeletons()}
+      </Grid>
     );
   }
 

@@ -8,7 +8,7 @@ import {
   CardActions,
   CardActionArea,
   Typography,
-  IconButton
+  IconButton,
 } from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
 import { setCurrent } from '../../actions/productActions';
@@ -38,12 +38,7 @@ const ProductCard = ({ product, history }) => {
       </CardActionArea>
 
       <CardContent className='content'>
-        <Typography
-          variant='h6'
-          color='textPrimary'
-          component='h1'
-          className='name'
-        >
+        <Typography variant='h6' color='textPrimary' className='name'>
           {name}
         </Typography>
       </CardContent>
@@ -53,7 +48,7 @@ const ProductCard = ({ product, history }) => {
           $ {price}
         </Typography>
         <IconButton
-          className='btn-rounded bg-gray'
+          className='btn-rounded'
           aria-label='add_to_cart'
           onClick={addProduct}
         >
@@ -65,11 +60,11 @@ const ProductCard = ({ product, history }) => {
 };
 
 ProductCard.propTypes = {
-  product: PropTypes.object.isRequired
+  product: PropTypes.object.isRequired,
 };
 
 ProductCard.defaultProps = {
-  product: {}
+  product: {},
 };
 
 export default ProductCard;
