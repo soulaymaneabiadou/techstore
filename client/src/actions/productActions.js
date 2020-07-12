@@ -28,7 +28,7 @@ export const setCurrent = (product) => async (dispatch) => {
 export const getProducts = (limit = 6, page = 1) => async (dispatch) => {
   try {
     setLoading();
-    const res = await axios.get(`/products?limit=${limit}&page=${page}`);
+    const res = await axios.get(`/products`);
     const data = res.data;
 
     dispatch({ type: GET_PRODUCTS, payload: data });

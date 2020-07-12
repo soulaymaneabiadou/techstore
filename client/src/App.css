@@ -536,6 +536,14 @@ img {
   align-items: center;
 }
 
+.text-center {
+  text-align: center;
+  margin-top: 2.4rem;
+}
+.pagination {
+  display: inline-block;
+}
+
 /* =================== MEDIA QUERIES ================ */
 @media (min-width: 481px) {
   .text-content {
