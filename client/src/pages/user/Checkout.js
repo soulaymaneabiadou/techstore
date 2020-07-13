@@ -15,7 +15,7 @@ const Checkout = (props) => {
     <Container maxWidth='lg'>
       <Grid container spacing={3} className='mt-3'>
         <Grid container item xs={12} md={8} className='checkout-form'>
-          <CheckoutForm history={props.history} />
+          <CheckoutForm />
         </Grid>
 
         <Grid container item xs={12} md={4} className='checkout-details'>

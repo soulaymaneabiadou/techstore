@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import SnackAlert from '../layout/Alert';
 import { checkout } from '../../actions/cartActions';
 
-const CheckoutForm = (props) => {
+const CheckoutForm = () => {
   const dispatch = useDispatch();
   const { total, shop, list, errors } = useSelector((state) => state.cart);
   const [address, setAddress] = useState({
