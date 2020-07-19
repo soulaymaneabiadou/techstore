@@ -7,16 +7,14 @@ const router = express.Router();
 
 router.use(protect);
 
-router
-  .route('/')
-  .get(
-    advancedResults(Order, {
-      path: 'user',
-      select: 'name email',
-    }),
-    getOrders
-  )
-  .post(authorize('user'), createOrder);
+router.route('/').get(
+  advancedResults(Order, {
+    path: 'user',
+    select: 'name email',
+  }),
+  getOrders
+);
+// .post(authorize('user'), createOrder);
 
 router.route('/:id').get(getOrder);
 

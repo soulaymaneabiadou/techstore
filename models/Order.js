@@ -5,12 +5,12 @@ const OrderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  user: {
+  customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  total: {
+  total_price: {
     type: Number,
   },
   products: [
@@ -19,36 +19,21 @@ const OrderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'products',
       },
-      price: {
+      unit_price: {
         type: Number,
       },
-      quantity: {
+      orderd_quantity: {
         type: Number,
       },
     },
   ],
-  address: {
-    country: {
-      type: String,
-      required: true,
-    },
-    city: {
-      type: String,
-      required: true,
-    },
-    street: {
-      type: String,
-      required: true,
-    },
-    zip: {
-      type: String,
-      required: true,
-    },
+  shipping_address: {
+    type: Object,
   },
   status: {
     type: String,
-    enum: ['delivered', 'pending'],
-    default: 'pending',
+    enum: ['created', 'paid', 'shipping', 'completed', 'cancelled'],
+    default: 'created',
   },
 });
 
@@ -60,5 +45,11 @@ OrderSchema.pre('save', function (next) {
 
   next();
 });
+
+/*
+  OrderSchema.methods.confirmOrder = function () {
+  // TODO: Confirm order IF paid(if payment success using a hook)
+};
+*/
 
 module.exports = mongoose.model('Order', OrderSchema);

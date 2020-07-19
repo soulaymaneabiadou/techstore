@@ -2,6 +2,11 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const stripe = require('stripe')(process.env.STRIPE_SK_KEY);
 
+/**
+ * Create a customer account in stripe for a user
+ * @param {Object} customer the user that signed up
+ * @returns the customer's ID that was created
+ */
 exports.createCustomer = async (customer) => {
   const res = await stripe.customers.create({
     name: customer.name,
@@ -11,73 +16,55 @@ exports.createCustomer = async (customer) => {
   return res.id;
 };
 
-exports.createSession = asyncHandler(async (req, res, next) => {
-  const { price, quantity, product, orderId } = req.body;
-  const { stripeId, name } = req.user;
-
-  // const session = await stripe.checkout.sessions.create({
-  //   payment_method_types: ['card'],
-  //   mode: 'payment',
-  //   customer: stripeId,
-  //   metadata: {
-  //     order_id: orderId,
-  //   },
-  //   line_items: [
-  //     {
-  //       price_data: {
-  //         product_data: {
-  //           name: product.name,
-  //           images: product.images,
-  //         },
-  //         currency: 'usd',
-  //         unit_amount: price,
-  //       },
-  //       quantity,
-  //     },
-  //   ],
-
-  //   success_url: 'http://localhost:3000/',
-  //   cancel_url: `http://localhost:3000/app`,
-  // });
+/**
+ *
+ */
+exports.createPaymentIntent = asyncHandler(async (req, res, next) => {
+  const { name, stripeId } = req.user;
+  const { amount, address } = req.body;
+  // const { street, postal_code, city, country, state } = address || {};
 
   const paymentIntent = await stripe.paymentIntents.create({
     payment_method_types: ['card'],
     currency: 'usd',
-    amount: price,
+    amount: amount,
     customer: stripeId,
-    metadata: {
-      order_id: orderId,
-    },
-    shipping: {
-      name: name,
-      // address: {
-      //   line1: null,
-      //   city: null,
-      //   country: null, // ISO-2 (UK, US, ...)
-      //   postal_code: null, // zip
-      //   state: null,
-      // },
-      // tracking_number: null,
-    },
+    // shipping: {
+    //   name: name,
+    //   address: {
+    //     line1: street,
+    //     city: city,
+    //     country: country,
+    //     postal_code: postal_code,
+    //     state: state,
+    //   },
+    // },
   });
 
   res.status(200).json({
-    succes: true,
-    // data: session.id
-    data: paymentIntent.id,
+    success: true,
+    data: paymentIntent, //.client_secret,
   });
 });
 
 exports.hooksEvent = asyncHandler(async (req, res) => {
   const event = req.body;
   // const endpointSecret = process.env.WEBHOOKS_SECRET;
+  let paymentIntent;
 
   switch (event.type) {
     case 'payment_intent.succeeded':
-      const paymentIntent = event.data.object;
+      paymentIntent = event.data.object;
       console.log(`Successful payment`);
       console.log(paymentIntent);
-      // TODO: Save the order and add the paymentIntent.id to that order
+      // TODO: Mark order as 'paid'
+      break;
+
+    case 'payment_intent.payment_failed':
+      paymentIntent = event.data.object;
+      console.log(`Failed payment`);
+      console.log(paymentIntent);
+      // TODO: Mark order as 'cancelled'
       break;
 
     default:
