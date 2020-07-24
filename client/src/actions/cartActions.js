@@ -3,11 +3,8 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CLEAR_CART,
-  UPDATE_CART,
-  PLACE_ORDER,
-  ORDER_ERROR
+  UPDATE_CART
 } from './types';
-import { createPayment } from './paymentsActions';
 
 export const addToCart = (product) => async (dispatch) => {
   try {
@@ -30,20 +27,5 @@ export const removeFromCart = (id) => async (dispatch) => {
     dispatch({ type: REMOVE_FROM_CART, payload: id });
   } catch (error) {
     dispatch({ type: CLEAR_CART });
-  }
-};
-
-export const checkout = ({ address, total, shop, payment, product }) => async (dispatch) => {
-  try {
-
-    const res = await axios.post('/orders', {
-      address,
-      total,
-      products: shop
-    });
-    dispatch({ type: PLACE_ORDER, payload: res.data });
-    dispatch(createPayment({ ...payment, product }));
-  } catch (error) {
-    dispatch({ type: ORDER_ERROR, payload: error.response.data.error });
   }
 };

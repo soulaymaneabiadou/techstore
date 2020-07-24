@@ -6,24 +6,24 @@ import {
   Button,
   Link as MuiLink,
   Breadcrumbs,
-  Typography,
+  Typography
 } from '@material-ui/core';
 import {
   CreateOutlined as CreateIcon,
-  DeleteOutlined as RemoveIcon,
+  DeleteOutlined as RemoveIcon
 } from '@material-ui/icons';
 import { getProducts, deleteProduct } from '../../actions/productActions';
 import DataTable from '../../components/layout/DataTable';
 
 const Products = (props) => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.store);
+  const { products } = useSelector((state) => state.shop);
   const [data, setData] = useState([]);
   const [columns] = useState([
     { id: 'name', label: 'Name' },
     { id: 'price', label: 'Price' },
     { id: 'quantity', label: 'Quantity' },
-    { id: 'action', label: '' },
+    { id: 'action', label: '' }
   ]);
 
   const goTo = (to) => (e) => {
@@ -44,12 +44,10 @@ const Products = (props) => {
               disableElevation
               onClick={null}
               variant='contained'
-              color='secondary'
-            >
+              color='secondary'>
               <Link
                 to={`/admin/products/update/${product._id}`}
-                className='reset'
-              >
+                className='reset'>
                 <CreateIcon />
               </Link>
             </Button>
@@ -58,8 +56,7 @@ const Products = (props) => {
               className='ml-1'
               onClick={deleteThisProduct(product._id)}
               variant='contained'
-              color='secondary'
-            >
+              color='secondary'>
               <RemoveIcon />
             </Button>
           </div>

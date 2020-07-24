@@ -10,11 +10,10 @@ router.use(protect);
 router.route('/').get(
   advancedResults(Order, {
     path: 'user',
-    select: 'name email',
+    select: 'name email'
   }),
   getOrders
 );
-// .post(authorize('user'), createOrder);
 
 router.route('/:id').get(getOrder);
 

@@ -6,7 +6,7 @@ import DataCard from '../../components/DataCard';
 const Dashboard = () => {
   const userCount = useSelector((state) => state.users.count);
   const orderCount = useSelector((state) => state.orders.count);
-  const productCount = useSelector((state) => state.store.count);
+  const productCount = useSelector((state) => state.shop.count);
 
   return (
     <Container maxWidth='lg'>

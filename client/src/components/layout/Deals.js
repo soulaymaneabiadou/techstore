@@ -5,7 +5,7 @@ import ProductCard from '../product/ProductCard';
 import ProductCardSkeleton from '../product/ProductCardSkeleton';
 
 const HotDeals = (props) => {
-  const { products, loading } = useSelector((state) => state.store);
+  const { products, loading } = useSelector((state) => state.shop);
   const [deals, setDeals] = useState([]);
 
   useEffect(() => {
@@ -19,8 +19,7 @@ const HotDeals = (props) => {
         color='textPrimary'
         display='block'
         variant='h5'
-        className='my-2 text-uppercase section-header'
-      >
+        className='my-2 text-uppercase section-header'>
         Top Deals
       </Typography>
 

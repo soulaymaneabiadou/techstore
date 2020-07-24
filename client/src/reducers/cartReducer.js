@@ -2,16 +2,14 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CLEAR_CART,
-  UPDATE_CART,
-  PLACE_ORDER,
-  ORDER_ERROR,
+  UPDATE_CART
 } from '../actions/types';
 
 const initialState = {
   list: [],
-  shop: [],
+  products: [],
   total: 0,
-  errors: [],
+  errors: []
 };
 
 export default (state = initialState, action) => {
@@ -24,61 +22,54 @@ export default (state = initialState, action) => {
         ? {
             ...state,
             list: [...state.list, action.payload],
-            shop: [
-              ...state.shop,
+            products: [
+              ...state.products,
               {
                 id: action.payload._id,
-                price: action.payload.price,
-                quantity: 1,
-              },
+                unit_price: action.payload.price,
+                quantity: 1
+              }
             ],
-            total: state.total + action.payload.price,
+            total: state.total + action.payload.price
           }
         : state;
 
     case UPDATE_CART:
-      const ele = state.shop.findIndex((p) => p.id === action.payload.id);
+      const ele = state.products.findIndex((p) => p.id === action.payload.id);
       const accPrice =
-        state.shop[ele].quantity < action.payload.quantity
+        state.products[ele].quantity < action.payload.quantity
           ? state.list[ele].price
           : -state.list[ele].price;
 
-      state.shop[ele].quantity = action.payload.quantity;
+      state.products[ele].quantity = action.payload.quantity;
       return {
         ...state,
-        shop: [...state.shop],
-        total: state.total + accPrice,
+        products: [...state.products],
+        total: state.total + accPrice
       };
 
     case REMOVE_FROM_CART:
       console.log(action.payload);
-      const del = state.shop.filter(
+      const del = state.products.filter(
         (product) => product._id !== action.payload
       )[0];
       return {
         ...state,
         list: [
-          ...state.list.filter((product) => product._id !== action.payload),
+          ...state.list.filter((product) => product._id !== action.payload)
         ],
-        shop: [
-          ...state.shop.filter((product) => product.id !== action.payload),
+        products: [
+          ...state.products.filter((product) => product.id !== action.payload)
         ],
-        total: state.total - del.price * del.quantity,
+        total: state.total - del.price * del.quantity
       };
 
     case CLEAR_CART:
-    case PLACE_ORDER:
       return {
         ...state,
         list: [],
-        shop: [],
-        total: 0,
-      };
-
-    case ORDER_ERROR:
-      return {
-        ...state,
-        errors: [action.payload],
+        products: [],
+        total: 0
       };
 
     default:

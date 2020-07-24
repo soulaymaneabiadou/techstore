@@ -27,11 +27,9 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const CLEAR_CART = 'CLEAR_CART';
 export const UPDATE_CART = 'UPDATE_CART';
 
-export const PLACE_ORDER = 'PLACE_ORDER';
-export const ORDER_ERROR = 'ORDER_ERROR';
-
-export const CREATE_PAYMENT = 'CREATE_PAYMENT';
-export const PAYMENT_ERROR = 'PAYMENT_ERROR';
-
 export const GET_ORDERS = 'GET_ORDERS';
 export const ORDERS_ERROR = 'ORDERS_ERROR';
+
+export const LOAD_STRIPE = 'LOAD_STRIPE';
+export const PAY_ORDER = 'PAY_ORDER';
+export const PAYMENT_ERROR = 'PAYMENT_ERROR';

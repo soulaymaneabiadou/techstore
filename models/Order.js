@@ -3,43 +3,67 @@ const mongoose = require('mongoose');
 const OrderSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
+    required: true
   },
   total_price: {
-    type: Number,
+    type: Number
+  },
+  payment_id: {
+    type: String,
+    required: true
   },
   products: [
     {
-      product: {
+      product_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'products',
+        ref: 'products'
       },
       unit_price: {
         type: Number,
+        required: true
       },
-      orderd_quantity: {
+      ordered_quantity: {
         type: Number,
-      },
-    },
+        required: true
+      }
+    }
   ],
   shipping_address: {
-    type: Object,
+    postal_code: {
+      type: Number,
+      required: true
+    },
+    street: {
+      type: String,
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    country: {
+      type: String,
+      required: true
+    },
+    state: {
+      type: String
+    }
   },
   status: {
     type: String,
     enum: ['created', 'paid', 'shipping', 'completed', 'cancelled'],
-    default: 'created',
-  },
+    default: 'created'
+  }
 });
 
 OrderSchema.pre('save', function (next) {
-  this.total = this.products.reduce(
-    (acc, currentValue) => acc + currentValue.price * currentValue.quantity,
+  this.total_price = this.cart.reduce(
+    (acc, cv) => acc + cv.unit_price * cv.ordered_quantity,
     0
   );
 

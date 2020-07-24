@@ -7,7 +7,7 @@ import { addToCart } from '../../actions/cartActions';
 import SnackAlert from './Alert';
 
 const Landing = (props) => {
-  const { products, loading } = useSelector((state) => state.store);
+  const { products, loading } = useSelector((state) => state.shop);
   const { name, description, images } = products[0] || {};
   const dispatch = useDispatch();
   const [res, setRes] = useState({ type: null, message: null });
@@ -54,8 +54,7 @@ const Landing = (props) => {
         className='landing text-white'
         style={{
           backgroundImage: `url(${images && images[0]})`
-        }}
-      >
+        }}>
         <div className='dark-overlay landing-inner flex-center'>
           <Container maxWidth='lg' className='relative-pos'>
             <div className='text-content'>
@@ -63,16 +62,14 @@ const Landing = (props) => {
                 className='text-white heading'
                 color='textPrimary'
                 gutterBottom={true}
-                variant='h5'
-              >
+                variant='h5'>
                 {name}
               </Typography>
 
               <Typography
                 className='text-white desc'
                 gutterBottom={true}
-                variant='body1'
-              >
+                variant='body1'>
                 {description}
               </Typography>
             </div>
@@ -84,15 +81,13 @@ const Landing = (props) => {
                 size='large'
                 fullWidth={false}
                 className='btn-large'
-                onClick={addCurrentToCart}
-              >
+                onClick={addCurrentToCart}>
                 Add to cart
               </Button>
 
               <Link
                 className='text-white text-underlined text-uppercase pointer'
-                onClick={handleShowDetails}
-              >
+                onClick={handleShowDetails}>
                 Check it out
               </Link>
             </div>

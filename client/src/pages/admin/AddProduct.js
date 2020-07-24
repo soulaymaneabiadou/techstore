@@ -1,6 +1,12 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Typography, Button, Container, InputAdornment } from '@material-ui/core';
+import {
+  TextField,
+  Typography,
+  Button,
+  Container,
+  InputAdornment
+} from '@material-ui/core';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import SnackAlert from '../../components/layout/Alert';
 import { createProduct, updateProduct } from '../../actions/productActions';
@@ -8,14 +14,14 @@ import { createProduct, updateProduct } from '../../actions/productActions';
 const AddProduct = (props) => {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const { errors, products } = useSelector((state) => state.store);
+  const { errors, products } = useSelector((state) => state.shop);
   const [productToUpdate] = useState(props.match.params.id || null);
   const [product, setProduct] = useState({
     name: '',
     description: '',
     price: '',
     quantity: '',
-    images: [],
+    images: []
   });
 
   useEffect(() => {
@@ -58,8 +64,7 @@ const AddProduct = (props) => {
           <Typography
             variant='h4'
             align='center'
-            className='text-uppercase mt-3'
-          >
+            className='text-uppercase mt-3'>
             Add Product
           </Typography>
 
@@ -90,10 +95,10 @@ const AddProduct = (props) => {
             fullWidth={true}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
+                <InputAdornment position='start'>
                   <AttachMoneyIcon />
                 </InputAdornment>
-              ),
+              )
             }}
           />
           <TextField
@@ -115,8 +120,7 @@ const AddProduct = (props) => {
             variant='contained'
             color='primary'
             className='mt-1'
-            fullWidth
-          >
+            fullWidth>
             {productToUpdate ? 'Update' : 'Add'}
           </Button>
         </form>

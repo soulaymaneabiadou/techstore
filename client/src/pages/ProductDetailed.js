@@ -15,7 +15,7 @@ import { addToCart } from '../actions/cartActions';
 
 const ProductDetailed = () => {
   const dispatch = useDispatch();
-  const { current = {} } = useSelector((state) => state.store);
+  const { current = {} } = useSelector((state) => state.shop);
   const { images, name, description } = current;
   const [featuredImg, setFeaturedImg] = useState(images[0]);
   const [res, setRes] = useState({ type: null, message: null });
@@ -58,16 +58,14 @@ const ProductDetailed = () => {
                 color='textPrimary'
                 gutterBottom={true}
                 variant='h4'
-                className='name'
-              >
+                className='name'>
                 {name}
               </Typography>
 
               <IconButton
                 className='btn-rounded bg-dark'
                 aria-label='add_to_cart'
-                onClick={addProduct}
-              >
+                onClick={addProduct}>
                 <AddShoppingCart />{' '}
                 <span className='btn-text'>Add to cart</span>
               </IconButton>
@@ -79,16 +77,14 @@ const ProductDetailed = () => {
               color='textPrimary'
               gutterBottom={true}
               variant='h4'
-              className='desc-header'
-            >
+              className='desc-header'>
               Description
             </Typography>
             <Typography
               color='textPrimary'
               gutterBottom={true}
               variant='body1'
-              className='desc-body'
-            >
+              className='desc-body'>
               {description}
             </Typography>
           </Grid>

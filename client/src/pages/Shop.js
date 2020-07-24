@@ -8,7 +8,7 @@ import { getProducts } from '../actions/productActions';
 import ProductCardSkeleton from '../components/product/ProductCardSkeleton';
 
 const Shop = (props) => {
-  const { products, loading, count } = useSelector((state) => state.store);
+  const { products, loading, count } = useSelector((state) => state.shop);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(2);
@@ -57,8 +57,7 @@ const Shop = (props) => {
         className='my-3 text-uppercase'
         color='textSecondary'
         gutterBottom={true}
-        variant='h4'
-      >
+        variant='h4'>
         Shop
       </Typography>
 
