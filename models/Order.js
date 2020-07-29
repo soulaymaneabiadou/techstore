@@ -34,25 +34,7 @@ const OrderSchema = new mongoose.Schema({
     }
   ],
   shipping_address: {
-    postal_code: {
-      type: Number,
-      required: true
-    },
-    street: {
-      type: String,
-      required: true
-    },
-    city: {
-      type: String,
-      required: true
-    },
-    country: {
-      type: String,
-      required: true
-    },
-    state: {
-      type: String
-    }
+    type: Object
   },
   status: {
     type: String,
@@ -62,7 +44,7 @@ const OrderSchema = new mongoose.Schema({
 });
 
 OrderSchema.pre('save', function (next) {
-  this.total_price = this.cart.reduce(
+  this.total_price = this.products.reduce(
     (acc, cv) => acc + cv.unit_price * cv.ordered_quantity,
     0
   );

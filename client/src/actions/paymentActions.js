@@ -17,14 +17,18 @@ export const stripeLoading = () => async (dispatch) => {
   dispatch({ type: LOAD_STRIPE, payload: stripe });
 };
 
-export const getPaymentIntent = () => async (dispatch) => {
+export const getPaymentIntent = (amount, metadata) => async (dispatch) => {
   try {
     setLoading();
-    const res = await axios.post('/payments', { amount: 5000 }, config);
+    const res = await axios.post(
+      '/payments',
+      { amount: amount * 100, metadata: JSON.stringify(metadata) },
+      config
+    );
 
     dispatch({ type: PAY_ORDER, payload: res.data.data });
   } catch (error) {
-    dispatch({ type: PAYMENT_ERROR, payload: error });
+    dispatch({ type: PAYMENT_ERROR, payload: error.message });
   }
 };
 

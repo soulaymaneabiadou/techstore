@@ -1,7 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SK_KEY);
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
-const { createOrder } = require('./orders');
+const { createOrder, updateOrder } = require('./orders');
 
 /**
  * Create a customer account in stripe for a user
@@ -21,16 +21,21 @@ exports.createCustomer = async (customer) => {
  *
  */
 exports.createPaymentIntent = asyncHandler(async (req, res, next) => {
-  const { amount } = req.body;
+  const { amount, metadata } = req.body;
+  const products = JSON.parse(metadata).products;
 
   if (!amount || amount <= 0) {
     return next(new ErrorResponse('Order total must be greater than 0', 400));
   }
 
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: amount,
+    amount,
     currency: 'usd',
-    payment_method_types: ['card']
+    payment_method_types: ['card'],
+    metadata: {
+      user: req.user.id,
+      products: JSON.stringify(products)
+    }
   });
 
   res.status(200).json({
@@ -48,18 +53,17 @@ exports.hooksEvent = asyncHandler(async (req, res, next) => {
   switch (event.type) {
     case 'payment_intent.created':
       msg = 'Created';
-      // TODO: Create order
+      await createOrder(paymentIntent);
       break;
 
     case 'payment_intent.succeeded':
       msg = 'Successful';
-      // TODO: Mark order as 'paid'
-      // and remove metadata from paymentintent
+      await updateOrder(paymentIntent, 'paid');
       break;
 
     case 'payment_intent.payment_failed':
       msg = 'Failed';
-      // TODO: Mark order as 'cancelled'
+      await updateOrder(paymentIntent, 'cancelled');
       break;
 
     default:

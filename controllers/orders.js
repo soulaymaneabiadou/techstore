@@ -4,7 +4,7 @@ const Order = require('../models/Order');
 
 exports.getOrders = asyncHandler(async (req, res, next) => {
   if (req.user.role === 'user') {
-    const orders = await Order.find({ user: req.user.id }).select('-user');
+    const orders = await Order.find({ customer: req.user.id }).select('-user');
 
     res.status(200).json({
       success: true,
@@ -30,3 +30,44 @@ exports.getOrder = asyncHandler(async (req, res, next) => {
     data: order
   });
 });
+
+exports.createOrder = async (pi) => {
+  try {
+    const { amount } = pi;
+    const { user, products } = pi.metadata;
+
+    const newOrder = {
+      customer: user,
+      total_price: amount,
+      payment_id: pi.id,
+      products: JSON.parse(products)
+    };
+
+    const order = await Order.create(newOrder);
+
+    return order;
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+};
+
+exports.updateOrder = async (pi, status) => {
+  try {
+    const { id } = pi;
+
+    const order = await Order.findOne({ payment_id: id });
+
+    if (!order) {
+      return next(
+        new ErrorResponse(`Order not found with payment id of ${id}`, 404)
+      );
+    }
+
+    order.status = status;
+    await order.save();
+
+    return order;
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+};

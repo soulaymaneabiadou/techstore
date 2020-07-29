@@ -8,7 +8,7 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
-exports.uploadImage = async files => {
+exports.uploadImage = async (files) => {
   let results = [];
 
   if (!files) {
@@ -24,7 +24,7 @@ exports.uploadImage = async files => {
   if (images) {
     for (let i = 0; i < images.length; i++) {
       const image = images[i];
-      image.mv(`./data/uploads/${image.name}`, error => {
+      image.mv(`./data/uploads/${image.name}`, (error) => {
         if (error) {
           return new ErrorResponse(error.message, 500);
         }
@@ -36,7 +36,7 @@ exports.uploadImage = async files => {
 
       results.push(res.secure_url);
 
-      fs.unlink(`./data/uploads/${image.name}`, err => {
+      fs.unlink(`./data/uploads/${image.name}`, (err) => {
         if (err) throw err;
       });
     }
@@ -45,14 +45,14 @@ exports.uploadImage = async files => {
   return results;
 };
 
-exports.deleteImage = async urls => {
+exports.deleteImage = async (urls) => {
   public_ids = [];
-  urls.forEach(url => {
+  urls.forEach((url) => {
     public_ids.push(
       url.substring(url.lastIndexOf('/') + 1, url.lastIndexOf('.'))
     );
   });
   const res = await cloudinary.api.delete_resources(public_ids);
-  console.log(res);
+
   return Object.keys(res.deleted).length;
 };

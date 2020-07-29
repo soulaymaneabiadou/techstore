@@ -25,7 +25,7 @@ const CARD_ELEMENT_OPTIONS = {
 const CheckoutForm = ({ success }) => {
   const elements = useElements();
   const { name } = useSelector((state) => state.auth.user);
-  const { total, shop, list, errors } = useSelector((state) => state.cart);
+  const { total, errors } = useSelector((state) => state.cart);
   const { stripe, paymentIntent } = useSelector((state) => state.payments);
   const [error, setError] = useState(null);
   const [res, setRes] = useState({ type: null, message: null });

@@ -8,12 +8,13 @@ import { stripeLoading, getPaymentIntent } from '../../actions/paymentActions';
 const Checkout = (props) => {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const { total } = useSelector((state) => state.shop);
+  const { total, products } = useSelector((state) => state.cart);
   const { stripe } = useSelector((state) => state.payments);
 
   useEffect(() => {
     dispatch(stripeLoading());
-    dispatch(getPaymentIntent());
+    dispatch(getPaymentIntent(total, { products }));
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

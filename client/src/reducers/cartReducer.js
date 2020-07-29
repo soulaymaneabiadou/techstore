@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
               {
                 id: action.payload._id,
                 unit_price: action.payload.price,
-                quantity: 1
+                ordered_quantity: 1
               }
             ],
             total: state.total + action.payload.price
@@ -37,11 +37,11 @@ export default (state = initialState, action) => {
     case UPDATE_CART:
       const ele = state.products.findIndex((p) => p.id === action.payload.id);
       const accPrice =
-        state.products[ele].quantity < action.payload.quantity
+        state.products[ele].ordered_quantity < action.payload.quantity
           ? state.list[ele].price
           : -state.list[ele].price;
 
-      state.products[ele].quantity = action.payload.quantity;
+      state.products[ele].ordered_quantity = action.payload.quantity;
       return {
         ...state,
         products: [...state.products],
@@ -49,7 +49,6 @@ export default (state = initialState, action) => {
       };
 
     case REMOVE_FROM_CART:
-      console.log(action.payload);
       const del = state.products.filter(
         (product) => product._id !== action.payload
       )[0];
@@ -61,7 +60,7 @@ export default (state = initialState, action) => {
         products: [
           ...state.products.filter((product) => product.id !== action.payload)
         ],
-        total: state.total - del.price * del.quantity
+        total: state.total - del.price * del.ordered_quantity
       };
 
     case CLEAR_CART:
