@@ -11,7 +11,7 @@ const config = {
 export const stripeLoading = () => async (dispatch) => {
   setLoading();
   const stripe = await loadStripe(
-    'pk_test_51FoQP1JbwatK9u7ABGgChf9IT5moSrb6iuSXyjUVsseuEgPpQn08gLkSRhRz3J66HEiAzmL5UAajokfZkqrczGdM00VgxVah71'
+    'pk_test_51FoQP1JbwatK9u7AJpaAIbPk2zYHOOhqeEC3L2kF5P7roEHMuUFrd9eEQ18pcKC9qsAkWEPMt8K0Rpm5mt0zzHJN00ZlSyJkOl'
   );
 
   dispatch({ type: LOAD_STRIPE, payload: stripe });

@@ -18,7 +18,7 @@ exports.getProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: product,
+    data: product
   });
 });
 
@@ -42,7 +42,7 @@ exports.createProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: product,
+    data: product
   });
 });
 
@@ -65,12 +65,12 @@ exports.updateProduct = asyncHandler(async (req, res, next) => {
   const data = { ...req.body };
   product = await Product.findByIdAndUpdate(req.params.id, data, {
     new: true,
-    runValidators: true,
+    runValidators: true
   });
 
   res.status(200).json({
     success: true,
-    data: product,
+    data: product
   });
 });
 
@@ -93,6 +93,29 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    data: {},
+    data: {}
   });
 });
+
+exports.updateProductQuantity = async (productId, orderdquantity) => {
+  try {
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return false;
+      // return next(
+      //   new ErrorResponse(`Product not found with ID of ${productId}`, 404)
+      // );
+    }
+
+    product.quantity -= orderdquantity;
+
+    await product.save();
+
+    console.log(product);
+
+    return true;
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+};

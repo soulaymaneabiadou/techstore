@@ -1,6 +1,7 @@
 const asyncHandler = require('../middleware/async');
 const ErrorResponse = require('../utils/errorResponse');
 const Order = require('../models/Order');
+const { updateProductQuantity } = require('./products');
 
 exports.getOrders = asyncHandler(async (req, res, next) => {
   if (req.user.role === 'user') {
@@ -54,6 +55,7 @@ exports.createOrder = async (pi) => {
 exports.updateOrder = async (pi, status) => {
   try {
     const { id } = pi;
+    const products = JSON.parse(pi.metadata.products);
 
     const order = await Order.findOne({ payment_id: id });
 
@@ -62,6 +64,16 @@ exports.updateOrder = async (pi, status) => {
         new ErrorResponse(`Order not found with payment id of ${id}`, 404)
       );
     }
+
+    products.forEach(async (product) => {
+      const { id, ordered_quantity } = product;
+
+      const res = await updateProductQuantity(id, ordered_quantity);
+
+      if (!res) {
+        console.log('error');
+      }
+    });
 
     order.status = status;
     await order.save();
